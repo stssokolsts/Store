@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load catalog_tags %}
+{% block site_wrapper %}
+<div id="main">
+   <!-- Navigation -->
+   <div id="navigation">
+      <!-- Main menu-->
+      <nav class="navbar navbar-inverse " role="navigation">
+	      <div class="col-md-3">
+            <div class="navbar-header" style="padding-left: 50px; padding-top: 7px" >
+               <img src="{% static 'image/3.png' %}" alt="{{ p.name }}">
+            </div>
+		   </div>
+            <!-- Main menu-->
+            <div class="col-md-6">
+               <div class="mainmenu" id = "mainmenu">
+                  {% include 'navigation.html' %}
+               </div>
+               <!-- Extras menu-->
+            </div>
+            <p style="padding-right: 20px; text-align: right; padding-top: 10px; font-size: 20px; color: #D39A5A">+79102413467 <br> <span style="font-size: 20px"> ул.Ломоносова 114/8</span></p>
+            <div class="menuextras" style="padding-top: 26px; text-align: right">
+               <ul>
+                  <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="#"><b>3 товара в корзине</b></a></li>
+               </ul>
+            </div>
+      </nav>
+   </div>
+   <!-- endNavigation -->
+   <!-- nav and items -->
+   <div class="container">
+      <div class="row">
+         <div class="col-md-9">
+            <p><a href="#" >Home</a> >> Catalog >>  </p>
+         </div>
+         <div class="col-md-3">
+         </div>
+      </div>
+   </div>
+   <!-- ... -->
+   <!-- Content -->
+   {% block content %}
+   {% endblock %}
+   <!-- endContent -->
+   <!-- Footer -->
+   <div id="footer">
+      <div class="footer">
+         <div class="container">
+            <div class="row">
+               <div class="col-footer col-md-3 col-xs-6">
+                  <h3>Our Latest Work</h3>
+                  <div class="portfolio-item">
+                     <div class="portfolio-image">
+                        <a href="#"><img src="" alt="[Image here]"></a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-footer col-md-3 col-xs-6">
+                  <h3>Navigate</h3>
+                  [footer links]
+               </div>
+               <div class="col-footer col-md-4 col-xs-6">
+                  <h3>Contacts</h3>
+                  <p class="contact-us-details">
+                     <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
+                     <b>Phone:</b> +44 123 654321<br/>
+                     <b>Fax:</b> +44 123 654321<br/>
+                     <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                  </p>
+               </div>
+               <div class="col-footer col-md-2 col-xs-6">
+                  <h3>Stay Connected</h3>
+                  [Stay Contact here]
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="footer-copyright">&copy; 2013 mPurpose. All rights reserved.</div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- endFooter -->
+</div>
+{% endblock %}
