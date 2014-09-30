@@ -6,25 +6,30 @@
    <!-- Navigation -->
    <div id="navigation">
       <!-- Main menu-->
-      <nav class="navbar navbar-inverse " role="navigation">
-	      <div class="col-md-3">
+      <nav class="navbar navbar-inverse" role="navigation">
+         <!-- Brand-->
+         <div class="col-md-3">
             <div class="navbar-header" style="padding-left: 50px; padding-top: 7px" >
                <img src="{% static 'image/3.png' %}" alt="{{ p.name }}">
             </div>
-		   </div>
-            <!-- Main menu-->
-            <div class="col-md-6">
-               <div class="mainmenu" id = "mainmenu">
-                  {% include 'navigation.html' %}
+         </div>
+         <!-- Navigation-->
+         <div class="col-md-6">
+            <div class="mainmenu" id = "mainmenu">
+               {% include 'navigation.html' %}
+            </div>
+            <!-- Extras menu-->
+         </div>
+         <div class="col-md-3">
+            <div class="mainmenu_contact">
+               <p>+79102413467 <br> <span style="font-size: 20px"> ул.Ломоносова 114/8</span></p>
+               <div class="menuextras" style=" text-align: right">
+                  <ul>
+                     <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="#"><b>3 товара в корзине</b></a></li>
+                  </ul>
                </div>
-               <!-- Extras menu-->
             </div>
-            <p style="padding-right: 20px; text-align: right; padding-top: 10px; font-size: 20px; color: #D39A5A">+79102413467 <br> <span style="font-size: 20px"> ул.Ломоносова 114/8</span></p>
-            <div class="menuextras" style="padding-top: 26px; text-align: right">
-               <ul>
-                  <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="#"><b>3 товара в корзине</b></a></li>
-               </ul>
-            </div>
+         </div>
       </nav>
    </div>
    <!-- endNavigation -->
