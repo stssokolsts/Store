@@ -4,13 +4,13 @@
 {% block site_wrapper %}
 <div id="main">
    <!-- Navigation -->
-   <div id="navigation">
+   <div id="navigation" class="">
       <!-- Main menu-->
       <nav class="navbar navbar-inverse" role="navigation">
          <!-- Brand-->
          <div class="col-md-3">
-            <div class="navbar-header" style="padding-left: 50px; padding-top: 7px" >
-               <img src="{% static 'image/3.png' %}" alt="{{ p.name }}">
+            <div class="navbar-header" id="header_main" >
+               <a href="{% url 'catalog_home' %}"><img src="{% static 'image/3.png' %}" alt="{{ p.name }}"></a>
             </div>
          </div>
          <!-- Navigation-->
@@ -34,16 +34,17 @@
    </div>
    <!-- endNavigation -->
    <!-- nav and items -->
-   <div class="container">
-      <div class="row">
-         <div class="col-md-9">
-            <p><a href="#" >Home</a> >> Catalog >>  </p>
-         </div>
-         <div class="col-md-3">
-         </div>
-      </div>
+	<!--
+	<div class="row">
+   <div class="col-md-8 top_navigation">
+      <p><a href="#" >Категории</a> >> <a href="#" >Торжественные >></a>  </p>
    </div>
-   <!-- ... -->
+   <div class="col-md-4">
+      <form class="form-search">
+         <input type="text" class="form-control" placeholder="Поиск по каталогу">
+      </form>
+   </div>
+    -->
    <!-- Content -->
    {% block content %}
    {% endblock %}

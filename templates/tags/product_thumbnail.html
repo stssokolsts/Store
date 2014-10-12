@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<div class="product_thumbnail">
+{% load staticfiles %}
+        <div class="thumbnail" style="border-color: #1F0F06" >
+	        <a href="{{ p.get_absolute_url }}">
+            <img class="img-responsive" src="{% static p.image %}" alt="{{ p.name }}">
+		        </a>
+            <div class="caption">
+	            <a href="{{ p.get_absolute_url }}">
+                <h4 style="text-align: center; font-size: 21px"> {{ p.name }}
+                </h4>
+	            </a>
+                <p style=""> {{ p.description }}</p>
+	            <hr style="border-color: #1F0F06">
+	            <div class="row">
+		            <div class="col-md-7">
+			            1500р   |   1,5 кг
+		            </div>
+		            <div class="col-md-5">
+	            <button class="btn " style=" width: 110px; background-color: #6E4A29; color: #ffffff">В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button></div>
+	            </div>
+            </div>
+    </div>
+</div>
