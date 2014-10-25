@@ -12,6 +12,7 @@ urlpatterns = patterns('catalog.views',
                        url(r'^catalog$','show_catalog',{'template_name':'catalog/catalog.html' },'catalog'),
                        url(r'^akcii/', 'show_discounts', {'template_name':'catalog/discounts.html'},
                            'discounts'),
+                       url(r'^product/add/$', 'add_product_cart'),
                        )
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

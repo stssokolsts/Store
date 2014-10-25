@@ -1,0 +1,100 @@
+/*--------------------------------------------------------------------------
++	Подробный просмотр продукта
+--------------------------------------------------------------------------*/
+/*Общий класс просмотра продукта*/
+.product_detail {
+    padding-top: 0;
+    padding-right: 50px
+}
+
+/*Заголовок*/
+.product_detail h2 {
+    padding-left: 40px;
+}
+
+/*Подчеркивание*/
+.product_detail hr {
+    border-color: #6E4A29;
+}
+
+/*Подробности продукта*/
+.product_detail .product_info {
+    font-size: 15px;
+}
+
+/*Вес и время*/
+.product_detail .product_info .weight_time {
+    padding-top: 30px
+}
+
+/*Вес*/
+.product_detail .product_info .weight_time .weight {
+    padding: 0;
+    padding-left: 10px;
+}
+
+.product_detail .product_info .weight_time .weight .weight_img {
+    padding: 0;
+}
+
+.product_detail .product_info .weight_time .weight .weight_word {
+    padding: 3px;
+}
+
+.product_detail .product_info .weight_time .weight .weight_count {
+    font-size: 21px;
+    padding-left: 5px;
+}
+
+.product_detail .product_info .weight_time .weight .weight_count_choice {
+    font-size: 21px;
+    padding: 1px 1px 1px 10px;
+}
+
+.product_detail .product_info .weight_time .weight #minCost {
+    width: 37px;
+    height: 30px;
+    font-size: 16px;
+}
+
+/*Слайдер выбора веса*/
+.product_detail .product_info .weight_time .slider_weight {
+    padding-left: 70px;
+    width: 10px;
+}
+
+.product_detail .product_info .weight_time .time_info {
+    font-size: 14px;
+    line-height: 1.5;
+    padding-left: 0;
+}
+
+/*Описание*/
+.product_detail .product_info .description_product {
+    padding-top: 20px;
+}
+
+.product_detail .product_info .description_product h5 {
+    font-size: 18px;
+    padding-top: 10px;
+}
+
+/*Выбор начинки*/
+.product_detail .product_info .choice_filling {
+    padding-top: 20px;
+}
+
+/*Цена*/
+.product_detail .product_info .price_cart .price {
+    margin-top: 30px;
+    font-size: 40px;
+    text-align: center
+}
+
+/*Добавление в корзину кнопка*/
+.product_detail .product_info .add_cart #fly {
+    width: 110px;
+    margin-top: 50px;
+    background-color: #6E4A29;
+    color: #ffffff
+}

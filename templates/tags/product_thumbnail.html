@@ -1,24 +1,52 @@
 {% load staticfiles %}
-<div class="product_thumbnail">
-{% load staticfiles %}
-        <div class="thumbnail" style="border-color: #1F0F06" >
-	        <a href="{{ p.get_absolute_url }}">
-            <img class="img-responsive" src="{% static p.image %}" alt="{{ p.name }}">
-		        </a>
-            <div class="caption">
-	            <a href="{{ p.get_absolute_url }}">
-                <h4 style="text-align: center; font-size: 21px"> {{ p.name }}
-                </h4>
-	            </a>
-                <p style=""> {{ p.description }}</p>
-	            <hr style="border-color: #1F0F06">
-	            <div class="row">
-		            <div class="col-md-7">
-			            1500р   |   1,5 кг
-		            </div>
-		            <div class="col-md-5">
-	            <button class="btn " style=" width: 110px; background-color: #6E4A29; color: #ffffff">В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button></div>
-	            </div>
+{% for p in products%}
+<div class=" col-md-6 products_min ">
+    <div class="product_thumbnail">
+    {% if discount %} <img class="discounts_img img-responsive" src="{% static "bootstrap/img/1212.gif" %}"> {% endif %}
+        <div class="thumbnail  {% if discount %} discounts {% endif %}">
+            <div>
+                {% if detail %}
+                <a href="{{ p.get_absolute_url }}">
+                <img id="{{ p.slug }}" class="img-responsive lazy_load" data-original="{% static p.image %}" src="{% static p.image %}" alt="{{ p.name }}">
+                </a>
+                {% else %}
+                <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
+                {% endif %}
             </div>
+            <div class="caption">
+                <a href="{{ p.get_absolute_url }}">
+                    <h4 class="name_product"> {{ p.name }}
+                    </h4>
+                </a>
+                {% if not detail %}
+                <!--<p>{{ p.description }}</p> -->
+                {% endif %}
+                <hr>
+                <div class="row price_weight" >
+                    <div class="col-md-7" >
+                        <div class="thumb_price">
+	                        {%  if p.old_price > 0  %}
+		                        <span class="new_price"> {{ p.price }} р</span>
+	                            <span class="old_price">{{ p.old_price }}</span>
+                            {% elif p.weight %}
+		                        <span> {{ p.price }} р</span>
+		                        | {{ p.weight }} кг
+	                        {% else %}
+	                        <span> {{ p.price }} р</span>
+	                        {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-md-5 add_order">
+	                    <form method="post" action="." class="cart">
+                            {% csrf_token %}
+		                    <input id="id_product_slug" name="product_slug" value="{{ p.slug}}" type="hidden">
+		                    <button id="{{ p.slug }}" class="btn add_button">В корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+{% endfor %}

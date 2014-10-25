@@ -10,7 +10,7 @@
          <!-- Brand-->
          <div class="col-md-3">
             <div class="navbar-header" id="header_main" >
-               <a href="{% url 'catalog_home' %}"><img src="{% static 'image/3.png' %}" alt="{{ p.name }}"></a>
+               <a href="{% url 'catalog_home' %}"><img src="{% static 'image/3.png' %}" class="img-responsive" alt="{{ p.name }}"></a>
             </div>
          </div>
          <!-- Navigation-->
@@ -23,18 +23,16 @@
          <div class="col-md-3">
             <div class="mainmenu_contact">
                <p>+79102413467 <br> <span style="font-size: 20px"> ул.Ломоносова 114/8</span></p>
-               <div class="menuextras" style=" text-align: right">
-                  <ul>
-                     <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="#"><b>3 товара в корзине</b></a></li>
-                  </ul>
-               </div>
+               <div class="cart_box">
+			         {% cart_box request %}
+			   </div>
             </div>
          </div>
       </nav>
    </div>
    <!-- endNavigation -->
    <!-- nav and items -->
-	<!--
+<!--	<div class="container">
 	<div class="row">
    <div class="col-md-8 top_navigation">
       <p><a href="#" >Категории</a> >> <a href="#" >Торжественные >></a>  </p>
@@ -44,7 +42,8 @@
          <input type="text" class="form-control" placeholder="Поиск по каталогу">
       </form>
    </div>
-    -->
+</div>
+</div>-->
    <!-- Content -->
    {% block content %}
    {% endblock %}
