@@ -4,7 +4,7 @@ from catalog.models import Product
 from django.shortcuts import get_object_or_404 
 from django.http import HttpResponseRedirect
 
-import decimal # not needed yet but we will later
+import decimal# not needed yet but we will later
 import random
 CART_ID_SESSION_KEY = 'cart_id'
 
@@ -30,25 +30,40 @@ def get_cart_items(request):
     return CartItem.objects.filter(cart_id=_cart_id(request))
 
 
-def add_to_cart(request):
+def add_to_cart(request, postdata):
     """Добавляем в карту"""
-    postdata = request.POST.copy()
     product_slug = postdata.get('product_slug', '')
-    #количество продуктов
     quantity = postdata.get('quantity', 1)
+    description = postdata.get('description', '')
+
+    fillings = postdata.get('filling_choice')
+    print (fillings)
     p = get_object_or_404(Product, slug=product_slug)
+    if not p.weight:
+        weight = postdata.get('weight',0.96)
+    else:
+        weight = postdata.get('weight',p.weight)
+    image = p.image
+    print (weight)
     cart_products = get_cart_items(request)
     product_in_cart = False
     # check to see if item is already in cart
     for cart_item in cart_products:
-        if cart_item.product.id == p.id:
+        if cart_item.product.id == p.id and not cart_item.product.choice_weight:
             cart_item.augment_quantity(quantity)
             product_in_cart = True
     if not product_in_cart:   # create and save a new cart item
         ci = CartItem()
         ci.product = p
+        if (description):
+            ci.description = description
+        if fillings:
+            ci.filling = fillings
+            print(ci.filling)
+        ci.weight = weight
         ci.quantity = quantity
         ci.cart_id = _cart_id(request)
+        ci.image = image
         ci.save()
 
 
@@ -86,10 +101,10 @@ def remove_from_cart(request):
 
 # gets the total cost for the current cart
 def cart_subtotal(request):
-    cart_total = decimal.Decimal('0.00')
+    cart_total = 0
     cart_products = get_cart_items(request)
     for cart_item in cart_products:
-        cart_total += cart_item.product.price * cart_item.quantity
+        cart_total += float(cart_item.total)
     return cart_total
 
 

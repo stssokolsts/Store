@@ -1,6 +1,6 @@
 from django.db import models
 from image_field import ThumbnailImageFields
-
+from djangosphinx.models import SphinxSearch
 
 class ActiveCategoryManager(models.Manager):
     def get_query_set(self):
@@ -62,10 +62,10 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     is_bestseller = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
-    quantity = models.IntegerField()
-    description = models.TextField()
-    min_weight = models.IntegerField(blank =True, null=True)
-    max_weight = models.IntegerField(blank=True, null=True)
+    #quantity = models.IntegerField()
+    description = models.TextField(blank=True, null=True)
+    #min_weight = models.IntegerField(blank =True, null=True)
+    #max_weight = models.IntegerField(blank=True, null=True)
     weight = models.IntegerField(blank=True, null=True)
     meta_keywords = models.CharField("Meta Keywords",max_length=255,
                                      help_text='Comma-delimited set of SEO keywords for keywords meta tag')
@@ -80,6 +80,12 @@ class Product(models.Model):
     active = ActiveProductManager()
     choice_weight = models.BooleanField(default=False)
 
+    search = SphinxSearch(weight={
+        'name': 100,
+        'brand' :80,
+        'description': 60,
+        'meta_keywords': 50},
+                          mode='SPH_MATCH_ANY')
 
     class Meta:
         db_table = 'products'
@@ -98,6 +104,7 @@ class Product(models.Model):
         else:
             return None
 
+
 class Filling(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
@@ -113,4 +120,9 @@ class Filling(models.Model):
 
     objects = models.Manager()
     active = ActiveFillingManager()
+
+class Brand(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='image/brands')
+
 

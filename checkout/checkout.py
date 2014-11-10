@@ -11,7 +11,7 @@ def get_checkout_url(request):
 
 from models import Order
 
-def my_create_order(request):
+def create_order(request):
     """ if the POST to the payment gateway successfully billed the customer, create a new order
     containing each CartItem instance, save the order with the transaction ID from the gateway,
     and empty the shopping cart
@@ -25,7 +25,7 @@ def my_create_order(request):
     order.user = None
     if request.user.is_authenticated():
         order.user = request.user
-    order.status =Order.SUBMITTED
+    order.status = Order.SUBMITTED
     order.save()
 
     if order.pk:
@@ -33,23 +33,29 @@ def my_create_order(request):
         cart_items = cart.get_cart_items(request)
         for ci in cart_items:
             """ create order item for each cart item """
-            from models import MyOrderItem
-            oi = MyOrderItem()
+            from models import OrderItem
+            oi = OrderItem()
             oi.order = order
             oi.quantity = ci.quantity
             oi.price = ci.price  # now using @property
+            if ci.description:
+                oi.description = ci.description
+            if ci.weight:
+                oi.wight = ci.weight
+            if ci.filling:
+                oi.filling = ci.filling
             oi.product = ci.product
             oi.save()
         # all set, clear the cart
         cart.empty_cart(request)
 
         # save profile info for future orders
-        if request.user.is_authenticated():
-            from account import profile
-            profile.set(request)
+        #if request.user.is_authenticated():
+            #from account import profile
+            #profile.set(request)
     return order
 
-def my_process(request):
-    order = my_create_order(request)
+def process(request):
+    order = create_order(request)
     results = {'order_number': order.id, 'message': u''}
     return results

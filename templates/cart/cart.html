@@ -1,79 +1,106 @@
-{% extends "base_main.html" %}
+{% extends "catalog/catalog_base.html" %}
+{% load catalog_filters %}
+{% block css %}
+<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/cart.css">
+{% endblock %}
 {% load catalog_tags %}
 {% load staticfiles %}
-{% block content %}
-<table summary="Your Shopping Cart" id="shopping_cart">
-    <caption>Your Shopping Cart</caption>
-    <thead>
-        <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Price</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th scope="col" class="right">Total</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th class="right" colspan="5">
-                Cart Subtotal:
-            </th>
-            <th class="right">
-                {{ cart_subtotal }}
-            </th>
-        </tr>
-        {% if cart_items %}
-        <tr>
-            <th class="right" colspan="6">
-                <form method="post" action=".">
-	                {% csrf_token %}
-                    <input type="hidden" name="submit" value="Checkout" />
-                    <input type="submit" name="submit" value="Checkout" alt="Checkout" />
-                </form>
-            </th>
-        </tr>
-        {% endif %}
-    </tfoot>
-    <tbody>
-        {% if cart_items %}
-        {% for item in cart_items %}
-        <tr>
-            <td>
-                <a href="{{ item.get_absolute_url }}" class="cart">
-                {{ item.name }}
-                </a>
-            </td>
-            <td>{{ item.price }}</td>
-            <td class="right">
-                <form method="post" action="." class="cart">
-                    {% csrf_token %}
-                    <label for="quantity">Quantity:</label>
-                    <input type="text" name="quantity" value="{{ item.quantity }}" id="quantity"
-                           size="2" class="quantity" maxlength="5" />
-                    <input type="hidden" name="item_id" value="{{ item.id }}" />
-            </td>
-            <td>
-            <input type="submit" name="submit" value="Update" />
-            </form>
-            </td>
-            <td>
-                <form method="post" action="." class="cart">
-                    {% csrf_token %}
-                    <input type="hidden" name="item_id" value="{{ item.id }}" />
-                    <input type="submit" name="submit" value="Remove"/>
-                </form>
-            </td>
-            <td class="right">{{ item.total }}</td>
-        </tr>
-        {% endfor %}
-        {% else %}
-        <tr>
-            <td colspan="6" style="height:30px;">
-                Your cart is empty.
-            </td>
-        </tr>
-        {% endif %}
-    </tbody>
-</table>
+{% block page_header %}
+	<h1 class="page-header">Корзина</h1>
+{% endblock %}
+{% block main_content %}
+<div class="row">
+    <div class="col-md-12" style="padding-bottom: 20px">
+        <a href="javascript:history.back()" style="font-size: 18px; color: #6E4A29;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Назад в каталог
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="padding-left: 20px; padding-right: 20px">
+        <table class="table table-striped" cellspacing='0'>
+            <!-- cellspacing='0' is important, must stay -->
+            <tr>
+                <th style="max-width: 10px">Продукт</th>
+                <th>Название</th>
+                <th>Цена</th>
+	            <th style="max-width: 60px">Вес</th>
+                <th style="max-width: 60px">Количество</th>
+                <th style="max-width: 70px">Стоимость</th>
+                <th style="max-width: 30px">Действия</th>
+            </tr>
+            {% if cart_items %}
+            {% for item in cart_items %}
+            <tr>
+                <td>
+                    <a href="{{ item.get_absolute_url }}">
+                    <img class="img-responsive" src="{% static item.image %}" style="max-height: 50px; margin-left: 0">
+                    </a>
+                </td>
+                <td>{{ item.name }}</td>
+                <td id="price_{{ item.name }}">{{ item.price|currency }}</td>
+	            <td>
+	                {{ item.weight }} кг
+                </td>
+                <td style="text-align: center; {% if not item.product.choice_weight %} vertical-align:middle;{% endif %}">
+	                <form method="post" action="." class="cart">
+                        {% csrf_token %}
+					{% comment %}{{ item.quantity }}{% endcomment %}
+		             {% if item.product.choice_weight %}
+		                  {{ item.quantity }}
+			          {% else %}
+	                <input name="quantity" type="text"  class = "center-block form-control" name="quantity"
+	                        value="{{ item.quantity }}" id="quantity" size="2" maxlength="5" style="max-width: 60px" />
+		             {% endif %}
+                </td>
+
+                <td id="total_">{{ item.total|currency }}</td>
+	           {% comment %} {% if  %}{% endcomment %}
+                <td style="text-align: center; vertical-align:middle;">
+
+                        <div class="center-block">
+                            <input type="hidden" name="item_id" value="{{ item.id }}" />
+	                        {% if not item.product.choice_weight %}
+		                        <button type="submit" name="submit" value="Update" class="btn btn-xs "
+		                                style="background-color: #dbff4a"><i class="glyphicon glyphicon-share-alt"></i>
+	                        {% endif %}
+
+
+                            </button>
+                            <button type="submit" name="submit" value="Remove" style="background-color: #ff8364" class="btn btn-xs ">
+                            <i style="" class="glyphicon glyphicon-remove"></i>
+                            </button>
+                            {% comment %}<input type="submit" name="submit" value="Remove"/>{% endcomment %}
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="6" style="height:30px;">
+                    Ваша корзина пуста
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+<div class="row" style="padding-bottom: 20px">
+    <div class="col-md-12">
+	    <h4 class="pull-right" style="padding-right: 20px">Всего: {{ cart_subtotal|currency }}</h4>
+    </div>
+</div>
+{% if cart_items %}
+<form method="POST" action=".">
+    {% csrf_token %}
+    <input type="hidden" name="submit" value="Checkout" />
+    <!-- input type="image" name="Google Checkout" alt="Fast checkout through Google"
+        src="http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id={{ merchant_id }}
+              &w=180&h=46&style=white&variant=text&loc=en_US"  height="46" width="180" /-->
+    <button type="submit" value="Checkout" class="btn pull-right" style="background-color: #6E4A29; color: #ffffff">
+    Разместить заказ <i class="glyphicon glyphicon-tag"></i>
+    </button>
+</form>
+{% endif %}
 {% endblock %}

@@ -1,12 +1,23 @@
 {% extends "catalog/catalog_base.html" %}
+{% load catalog_tags %}
 {% block css %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/product.css">
 {% endblock %}
 {% load staticfiles %}
 {% block main_content %}
 <div class="">
+<a href="javascript:history.back()" style="font-size: 18px; color: #6E4A29 "><span class="glyphicon glyphicon-arrow-left"></span> Назад в каталог </a>
     <div class="row product_detail">
-        <h2>{{ p.name }}</h2>
+        <div class="row">
+	        <div class="col-md-10">
+		        <h2>{{ p.name }}</h2>
+	        </div>
+	        <div class="col-md-2">
+		        <div class="">
+					<img class="img-responsive" style="max-width: 110px" src="{% static "image/2q3.png" %}">
+		        </div>
+	        </div>
+        </div>
         <hr>
         <!-- Product Image & Available Colors -->
         <div class="col-md-7 image_detail" >
@@ -16,76 +27,11 @@
         </div>
         <!-- End Product Image & Available Colors -->
         <div class="col-md-5 product_info">
-            <div class="row weight_time">
-                <div class="col-md-6 weight">
-                    <div class="row">
-                        <div class="col-md-4 weight_img">
-                            <img class="img-responsive" style="" src="{% static "bootstrap/img/weight-scales-icon2.png" %}">
-                        </div>
-                        <div class="col-md-3 weight_word">
-                            <span style="font-size: 20px"> Вес: </span>
-                        </div>
-                        <div class="col-md-5 {% if p.max_weight and p.min_weight  %} weight_count_choice{% else %}weight_count {% endif %}">
-                            {% if p.max_weight and p.min_weight %}
-                            <input type="text" id="minCost"  value="1"readonly/> <span>кг</span>
-                            {% else %}
-                            {{ p.weight }}кг
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% if p.max_weight and p.min_weight %}
-                    <div class="row slider_weight">
-                        <div id="slider" class="slider"></div>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="col-md-2">
-                    <img class="img-responsive" src="{% static "bootstrap/img/w512h5121390855838watch5121psd.png" %}">
-                </div>
-                <div class="col-md-4 time_info"><b>Срок хранения</b> 12 суток</div>
-            </div>
-            <div class="row description_product">
-                <div class="col-md-12">
-                    {% if p.consist %}
-                    <h5>Описание:</h5>
-                    <p>
-                        {{ p.consist }}
-                    </p>
-                    {% else %}
-                    <h5>Описание:</h5>
-                    <p>
-                        {{ p.description }}
-                    </p>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="row choice_filling">
-                {% if p.max_weight and p.min_weight %}
-                <div class="col-md-5">
-                    <p><b>Выбор начинки:</b></p>
-                </div>
-                <div class="col-md-7">
-                    <select class="form-control pull-right">
-                        <option>Бисквит</option>
-                        <option>Шоколад с карамелью</option>
-                    </select>
-                </div>
-                {% endif %}
-            </div>
-            <div class="row price_cart">
-                <div class="col-md-6">
-                    <div class="price"> 1 200<span style="font-size: 22px">p</span></div>
-                </div>
-                <div class="col-md-6 add_cart">
-                    <form method="post" action="." class="cart" style="">
-                        {% csrf_token %}
-                        <input id="id_product_slug" name="product_slug" value="{{ p.slug}}"  type="hidden">
-                        <button type="submit" id="fly" class="btn pull-right" >
-	                        В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
+	        {% if not p.choice_weight %}
+		        {% include "tags/product_detail.html" %}
+	        {% else %}
+                {% include "tags/product_choice_detail.html" %}
+	        {% endif %}
         </div>
     </div>
 </div>
@@ -109,5 +55,41 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Основа торта</h4>
+      </div>
+      <div class="modal-body">
+
+       {% for f in fillings %}
+	       <div class="row">
+	       <div class="col-md-12" style="text-align: center">
+	            <h3 class="pull-center">{{ f.name }}</h3>
+	       </div>
+	       </div>
+	       <div class="row">
+	            <div class="col-md-6">
+	                <img class="img-responsive" src="{% static f.image.url %}" alt="">
+	            </div>
+	            <div class="col-md-6">
+		            <p>{{ f.description }}</p>
+	            </div>
+	       </div>
+
+
+	   {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-primary">Сохранить изменения</button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

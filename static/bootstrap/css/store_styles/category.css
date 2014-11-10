@@ -51,13 +51,37 @@
     padding-right: 20px;
 }
 
+.products_min .price_weight .add_order .detail_button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    float: right;
+    width: 110px;
+    background-color: #6E4A29;
+    color: #ffffff
+}
+
+
 /*Добавить в корзину- кнопка*/
 .products_min .caption .price_weight .add_button {
     float: right;
     width: 110px;
     background-color: #6E4A29;
     color: #ffffff
-
 }
 
 .products_min .caption .price_weight .old_price {

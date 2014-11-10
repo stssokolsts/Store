@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load catalog_filters %}
 {% for p in products%}
 <div class=" col-md-6 products_min ">
     <div class="product_thumbnail">
@@ -7,42 +8,50 @@
             <div>
                 {% if detail %}
                 <a href="{{ p.get_absolute_url }}">
-                <img id="{{ p.slug }}" class="img-responsive lazy_load" data-original="{% static p.image %}" src="{% static p.image %}" alt="{{ p.name }}">
+                <img id="" class="img-responsive lazy_load" data-original="{% static p.image %}" src="{% static p.image %}" alt="{{ p.name }}">
                 </a>
                 {% else %}
                 <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
                 {% endif %}
             </div>
             <div class="caption">
+                {% if detail %}
                 <a href="{{ p.get_absolute_url }}">
                     <h4 class="name_product"> {{ p.name }}
                     </h4>
                 </a>
-                {% if not detail %}
-                <!--<p>{{ p.description }}</p> -->
+                {% else %}
+				     <a href="{% static p.image %}" data-gallery><h4 class="name_product">
+					     {{ p.name }}
+                    </h4></a>
                 {% endif %}
                 <hr>
                 <div class="row price_weight" >
                     <div class="col-md-7" >
                         <div class="thumb_price">
 	                        {%  if p.old_price > 0  %}
-		                        <span class="new_price"> {{ p.price }} р</span>
-	                            <span class="old_price">{{ p.old_price }}</span>
+		                        <span class="new_price"> {{ p.price|currency }}</span>
+	                            <span class="old_price">{{ p.old_price|currency }}</span>
                             {% elif p.weight %}
-		                        <span> {{ p.price }} р</span>
+		                        <span> {{ p.price|currency }}</span>
 		                        | {{ p.weight }} кг
 	                        {% else %}
-	                        <span> {{ p.price }} р</span>
+	                        <span> {{ p.price|currency }}</span>
 	                        {% endif %}
 
                         </div>
                     </div>
                     <div class="col-md-5 add_order">
+                    {% if not p.choice_weight %}
 	                    <form method="post" action="." class="cart">
                             {% csrf_token %}
 		                    <input id="id_product_slug" name="product_slug" value="{{ p.slug}}" type="hidden">
-		                    <button id="{{ p.slug }}" class="btn add_button">В корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>
+		                    <button id="{{ p.slug }}" class="btn add_button">{% if p.choice_weight %}Подробнее{% else %}В корзину
+			                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>{% endif %}
 						</form>
+                    {% else %}
+	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button" style="">Подробнее</div></a>
+                    {% endif %}
                     </div>
                 </div>
             </div>

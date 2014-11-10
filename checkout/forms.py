@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from models import Order
 from Store.settings import DEBUG
@@ -16,3 +17,10 @@ class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Order
         exclude = ('status', 'ip_address', 'user',)
+        widgets = {
+            'email': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Enter email', 'type':'email'}),
+            'phone': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Контактный телефон', 'type':'text'})
+        }
+        labels = {
+            'phone' : ('Телефон'),
+        }
