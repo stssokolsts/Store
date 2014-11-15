@@ -1,35 +1,35 @@
 {% load staticfiles %}
 {% load catalog_filters %}
-<div class="row description_product"  style="padding-top: 15px">
-	<form method="post" action="" class="cart" style="" id="cart">
+<div class="row description_product detail" >
+	<form method="post" action="" class="cart" id="cart">
    <div class="col-md-4 ">
       <h5> {{ form_cart.quantity.label }}</h5>
    </div>
    <div class="col-md-3 form-group" >
       {{ form_cart.quantity }}
    </div>
-   <div class="col-md-5 help_line" id = '{{ form_cart.quantity.name  }}_error' style="font-size: 14px; color: #b94a48">
+   <div class="col-md-5 help_line" id = '{{ form_cart.quantity.name  }}_error'>
 	   {{ form_cart.quantity.errors  }}
    </div>
 </div>
-<div class="row description_product"  style="padding-top: 35px">
-	<div class="col-md-12">
+<div class="row detail description_product  ">
+	<div class="col-md-12 des">
 		<h5>Описание:</h5>
 	</div>
 
 </div>
-<div class="row">
+<div class="row detail">
 	<div class="col-md-12">
-		<p style="font-size: 16px">{{ p.description }}</p>
+		<p class="description_name">{{ p.description }}</p>
 	</div>
 
 </div>
-<div class="row price_cart">
-                <div class="col-md-6" style="padding-right: 0">
-                    <div class="price" style="padding-top: 50px"> {{ p.price|currency }}</div>
+<div class="row price_cart detail">
+                <div class="col-md-6 ">
+                    <div class="price"> {{ p.price|currency }}</div>
                 </div>
-                <div class="col-md-6 add_cart" style="padding-top: 50px">
-                    <form method="post" action="" class="cart" style="" id="cart">
+                <div class="col-md-6 add_cart">
+                    <form method="post" action="" class="cart" id="cart">
                         {% csrf_token %}
                         <button type="submit" id="fly" class="btn pull-right" >
 	                        В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i>
@@ -37,6 +37,6 @@
 	                    {{ form_cart.product_slug }}
 
                     </form>
-	                <a id="go_cart" class="pull-right" style="padding-top: 5px;display: none; font-size: 15px; color: #6E4A29" href="{% url 'show_cart' %}">Перейти в корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i></a>
+	                <a id="go_cart" class="pull-right" href="{% url 'show_cart' %}">Перейти в корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i></a>
                 </div>
             </div>

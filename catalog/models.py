@@ -1,6 +1,7 @@
 from django.db import models
-from image_field import ThumbnailImageFields
 from djangosphinx.models import SphinxSearch
+from django.db.models.signals import post_save, post_delete
+from caching.caching import cache_update, cache_evict
 
 class ActiveCategoryManager(models.Manager):
     def get_query_set(self):
@@ -44,6 +45,10 @@ class Category(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('catalog_category', (), {'category_slug': self.slug})
+
+    @property
+    def cache_key(self):
+        return self.get_absolute_url()
 
 
 class Product(models.Model):
@@ -104,6 +109,10 @@ class Product(models.Model):
         else:
             return None
 
+    @property
+    def cache_key(self):
+        return self.get_absolute_url()
+
 
 class Filling(models.Model):
     name = models.CharField(max_length=50)
@@ -125,4 +134,8 @@ class Brand(models.Model):
     name = models.CharField(max_length=50)
     image = models.ImageField(upload_to='image/brands')
 
+post_save.connect(cache_update, sender=Product)
+post_delete.connect(cache_evict, sender=Product)
+post_save.connect(cache_update, sender=Category)
+post_delete.connect(cache_evict, sender=Category)
 

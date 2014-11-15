@@ -2,7 +2,9 @@
 from models import CartItem
 from catalog.models import Product
 from django.shortcuts import get_object_or_404 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core import urlresolvers
+import json
 
 import decimal# not needed yet but we will later
 import random
@@ -115,3 +117,39 @@ def is_empty(request):
 def empty_cart(request):
     user_cart = get_cart_items(request)
     user_cart.delete()
+
+
+def add_to_cart_general(form_cart,request,p):
+    #если данные формы верны:
+    postdata =request.POST.copy()
+    print(form_cart.errors.as_ul)
+    if form_cart.is_valid():
+        print ("ok valid")
+        if (p.choice_weight):
+            postdata.update( {'filling_choice' : form_cart.cleaned_data['filling_choice']})
+        add_to_cart(request,postdata)
+        if request.session.test_cookie_worked():
+            request.session.delete_test_cookie()
+        #формируем ответ для ajax:
+        if (request.is_ajax()):
+            response_dict = {}
+            response_dict.update({'success': 'True', 'count' : cart_distinct_item_count(request) })
+            request.session.set_test_cookie()
+            return {'redirect': True, 'http_response': HttpResponse(json.dumps(response_dict), content_type='application/javascript')}
+        else:
+            url = urlresolvers.reverse('show_cart')
+            return {'redirect': True, 'http_response': HttpResponseRedirect(url)}
+    #формируем ответ для неверных данных
+    elif (request.is_ajax()):
+        print(request.is_ajax())
+        print(form_cart)
+        response_dict = {}
+        data = []
+        for k, v in form_cart._errors.iteritems():
+            text = {'desc': ', '.join(v),}
+            text['key'] = '%s' % k
+            data.append(text)
+        response_dict.update({'success': 'False','errors': data})
+        return {'redirect': True, 'http_response': HttpResponse(json.dumps(response_dict), content_type='application/javascript')}
+    else:
+        return {'redirect': False}

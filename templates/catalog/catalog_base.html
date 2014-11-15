@@ -1,27 +1,29 @@
 {% extends "base_main.html" %}
 {% load catalog_tags %}
 {% load staticfiles %}
+{% load search_tags %}
+{% block other_scripts %}
+	 <script src="{{ STATIC_URL }}bootstrap/js/store_js/catalog.js"></script>
+{% endblock %}
 {% block content %}
 <div class="container_r">
    <!-- Page Heading/Breadcrumbs -->
    <div class="row">
       <div class="col-md-12">
          <!-- Content Row -->
-         <div class="col-md-9" style="padding-right: 0px">
+         <div class="col-md-9 main_content">
             {% block page_header %}
             {% endblock %}
             {% block main_content %}{% endblock %}
          </div>
-         <div class="sidebar col-md-3" style="padding-left: 40px">
-            <div class="row">
-               <h3 style="font-size: 25px">Поиск по каталогу </h3>
-               <form class="form-search">
-                  <input type="text" class="form-control" placeholder="Поиск по каталогу">
-               </form>
+         <div class="sidebar col-md-3 left_sidebar">
+            <div class="row search">
+               <h3>Поиск по каталогу </h3>
+				{% search_box request %}
             </div>
             <div class="row" >
-               <div class="">
-                  <h3 style="font-size: 30px">Категории</h3>
+               <div>
+                  <h3 class="category_names">Категории</h3>
                   {% category_list request.path %}
                </div>
             </div>

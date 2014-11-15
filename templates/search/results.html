@@ -1,0 +1,14 @@
+{% extends 'catalog/catalog_base.html' %}
+{% block css %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/result.css">
+{% endblock %}
+{% block page_header %}
+	<h1 class="page-header">Результат по запросу: "{{ q }}"</h1>
+{% endblock %}
+{% block main_content %}
+	{% if products %}
+	{% include 'tags/product_thumbnail.html' %}
+	{% else %}
+		<p class="non_result">К сожалению, по Вашему запросу ничего не найдено.</p>
+	{% endif %}
+{% endblock %}

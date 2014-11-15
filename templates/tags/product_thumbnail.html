@@ -11,7 +11,7 @@
                 <img id="" class="img-responsive lazy_load" data-original="{% static p.image %}" src="{% static p.image %}" alt="{{ p.name }}">
                 </a>
                 {% else %}
-                <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
+                <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %} " data-gallery alt=""></a>
                 {% endif %}
             </div>
             <div class="caption">
@@ -21,7 +21,7 @@
                     </h4>
                 </a>
                 {% else %}
-				     <a href="{% static p.image %}" data-gallery><h4 class="name_product">
+				     <a href="{% static p.image %}"><h4 class="name_product">
 					     {{ p.name }}
                     </h4></a>
                 {% endif %}
@@ -50,7 +50,7 @@
 			                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>{% endif %}
 						</form>
                     {% else %}
-	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button" style="">Подробнее</div></a>
+	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button>Подробнее</div></a>
                     {% endif %}
                     </div>
                 </div>

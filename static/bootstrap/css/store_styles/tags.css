@@ -1,0 +1,77 @@
+.menuextras {
+    text-align: right;
+}
+
+.menu-item_active{
+    color: #4e3d20;
+    border: 1px #1f0f06 solid;
+    -webkit-border-radius: 20px;
+    background-color: #eedca9
+}
+
+.category_navbar {
+    background-color: #ddb680;
+    border-color: #000000;
+}
+
+/* выбор detail*/
+.choice_detail .error_description {
+    font-size: 14px;
+    color: #b94a48
+}
+
+.choice_detail .help_line{
+    font-size: 14px;
+    color: #b94a48
+}
+
+.choice_detail .help-block {
+    font-size: 12px;
+}
+
+#go_cart {
+    padding-top: 5px;
+    display: none;
+    font-size: 15px;
+    color: #6E4A29
+}
+
+/* просто detail*/
+.detail .description_product {
+    padding-top: 15px;
+}
+
+.detail .des {
+    padding-top: 35px;
+}
+
+
+
+.detail .help_line {
+    font-size: 14px; color: #b94a48;
+}
+
+.detail .description_name {
+    font-size: 16px
+}
+
+.detail .price_cart  .price {
+    padding-top: 50px;
+}
+
+.detail .add_cart {
+    padding-top: 50px;
+}
+
+
+.detail  #go_cart {
+    padding-top: 5px;display: none; font-size: 15px; color: #6E4A29;
+}
+
+.detail .price_cart .price_div {
+    padding-right: 0;
+}
+
+.detail .price {
+    padding-top: 50px
+}

@@ -3,10 +3,13 @@
 {% block css %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/product.css">
 {% endblock %}
+{% block other_scripts %}
+	 <script src="{{ STATIC_URL }}bootstrap/js/store_js/product.js"></script>
+{% endblock %}
 {% load staticfiles %}
 {% block main_content %}
 <div class="">
-<a href="javascript:history.back()" style="font-size: 18px; color: #6E4A29 "><span class="glyphicon glyphicon-arrow-left"></span> Назад в каталог </a>
+{% comment %}<a href="javascript:history.back()" style="font-size: 18px; color: #6E4A29 "><span class="glyphicon glyphicon-arrow-left"></span> Назад в каталог </a>{% endcomment %}
     <div class="row product_detail">
         <div class="row">
 	        <div class="col-md-10">
@@ -69,7 +72,7 @@
 
        {% for f in fillings %}
 	       <div class="row">
-	       <div class="col-md-12" style="text-align: center">
+	       <div class="col-md-12 filling_text">
 	            <h3 class="pull-center">{{ f.name }}</h3>
 	       </div>
 	       </div>
