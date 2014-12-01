@@ -1,0 +1,118 @@
+#sign_up_modal .my_modal .reg_form
+{
+	padding-left: 0;
+	padding-right: 0;
+}
+#sign_up_modal .my_modal .reg_label
+{
+	margin-top: 16px;
+	padding-bottom: 4px;
+	padding-left: 0;
+	padding-right: 0;
+}
+#sign_up_modal .my_modal .label_name
+{
+	padding-top: 10px;
+}
+#sign_up_modal .my_modal .reg_button
+{
+	background-color: #6E4A29;
+	border-color: #0c1d2c;
+	color: #fff;
+}
+#sign_up_modal .my_modal
+{
+	max-width: 400px;
+}
+#sign_up_modal .my_modal a
+{
+	color: #1F0F06;
+}
+#sign_up_modal .my_modal .my_modal_content .modal-header
+{
+	border-bottom: none;
+	padding-bottom: 0;
+}
+.nav-tabs > li > a:hover
+{
+	border-color: transparent;
+}
+#sign_up_modal .my_modal .my_modal_content .modal-header h4
+{
+	text-align: center;
+}
+.my_modal .my_modal_content a:focus
+{
+	color: #1F0F06;
+}
+.my_modal .my_modal_content a:hover,
+.my_modal .my_modal_content a:focus
+{
+	background-color: transparent;
+	color: #337ab7;
+}
+#sign_up_modal .my_modal .my_modal_content .modal-footer
+{
+	border: 0;
+}
+#sign_up_modal #parent
+{
+	font-size: 20px;
+	letter-spacing: 3px;
+	line-height: 12px;
+	overflow: hidden;
+	text-align: center;
+	white-space: nowrap;
+	width: 300px;
+}
+#sign_up_modal .child
+{
+	display: inline-block;
+	padding: 0;
+	vertical-align: middle;
+	width: 34px;
+}
+#sign_up_modal .social-icon
+{
+	padding-bottom: 10px;
+}
+#sign_up_modal #login-tab .alert
+{
+	display: none;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	padding: 10px;
+}
+#sign_up_modal #login-tab #login_errorlist h5
+{
+	font-weight: bold;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+#sign_up_modal #login-tab #login_errorlist .error_description
+{
+	font-size: 13px;
+}
+#sign_up_modal #register #reg_form .errors_text
+{
+	color: red;
+    margin-top: 0 ;
+}
+#sign_up_modal .help-block
+{
+	font-size: 11px;
+	margin-bottom: 0;
+}
+#sign_up_modal #login-tab hr
+{
+	border-top: 1px solid #DDD;
+}
+#sign_up_modal #login-tab .social-text
+{
+	color: #737373;
+	font-size: 15px;
+}
+#sign_up_modal #login-tab .img-social
+{
+	max-width: 34px;
+}

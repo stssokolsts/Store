@@ -10,6 +10,8 @@ def store(request, q):
         term.q = q
         term.ip_address = request.META.get('REMOTE_ADDR')
         term.user = None
+        if request.user.is_authenticated():
+            term.user = request.user
         term.save()
 
 

@@ -1,0 +1,244 @@
+
+html {
+    position:relative;
+    min-height:100%;
+}
+
+/* Global Styles */
+body {
+    background-color: #E2BE8C;
+    height: 100%;
+    min-width:900px !important;
+    color: #1F0F06 ;
+    overflow-y: scroll;
+}
+.body container.in_right {
+    padding-right: 1px;
+}
+
+.container {
+    width: 970px !important;
+}
+
+/*--------------------------------------------------------------------------
++	Main Menu Style
+--------------------------------------------------------------------------*/
+.navbar-inverse {
+  background-color: #1F0F06;
+  border-color: #D39A5A;
+  height: 150px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #D39A5A;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #ffff99;
+    background-color: transparent;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #cea367;
+    font-size: 25px;
+    padding-top: 50px;
+}
+
+.navbar-inverse .mainmenu {
+    font-size: 20px;
+    padding-top: 50px;
+}
+
+.navbar-brand{
+    padding-top: 10px;
+}
+
+.mainmenu_contact p{
+   text-align: right;
+    font-size: 20px;
+    color: #D39A5A;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+#header_main{
+    padding-left: 50px;
+    padding-top: 7px
+}
+
+/*--------------------------------------------------------------------------
++	Extras Menu (Cart, Language, Login) Style
+--------------------------------------------------------------------------*/
+.menuextras {
+  font-size: 18px;
+  padding-top: 26px;
+  text-align: right"
+
+}
+.menuextras ul {
+  margin: 0;
+  list-style-type: none;
+  float: right;
+  color: #D39A5A;
+}
+.menuextras li{
+  float: left;
+  padding: 0 8px;
+
+}
+.menuextras li a{
+  color: #D39A5A;
+}
+
+.menuextras> li > a:focus{
+    color: #ffff99;
+}
+
+/*--------------------------------------------------------------------------
++	Search and nav
+--------------------------------------------------------------------------*/
+
+.top_navigation a{
+    color: #1F0F06 ;
+    font-size: 18px;
+}
+
+
+/*--------------------------------------------------------------------------
++	Footer
+--------------------------------------------------------------------------*/
+
+.footer {
+    background-color: #1F0F06;
+}
+
+#main {
+ padding-bottom: 300px;/*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
+}
+
+#footer {
+ height: 90px;
+ position: absolute;
+ bottom: 0;
+ width: 100%;
+ color: #f3f3f3;
+
+}
+
+/*--------------------------------------------------------------------------
++	Sidebar
+--------------------------------------------------------------------------*/
+
+.row .list-group-item {
+
+    border-color: #5D2C13;
+    color: #1F0F06;
+}
+
+a.list-group-item:hover,
+a.list-group-item:focus{
+
+}
+
+.list-group h3 {
+    border: 1px #1f0f06 solid;
+    -webkit-border-radius: 20px;
+    background-color: #dcac5f;
+    height: 40px;
+    padding-left: 15px;
+    padding-top: 7px
+}
+
+.menu-item {
+    font-size: 19px;
+    color: #1F0F06;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  color: #bc742e;
+}
+
+
+.nav > li.menu-item_active > a:hover,
+.nav > li.menu-item_active > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  color: #1F0F06;
+}
+
+.page-header{
+    border-bottom: 1px solid #1F0F06 ;
+    margin-bottom: 5px;
+}
+
+.portfolio-item a{
+    color: #1F0F06 ;
+}
+
+
+
+.blueimp-gallery > .description {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  color: #fff;
+  display: none;
+}
+.blueimp-gallery-controls > .description {
+  display: block;
+}
+
+.container_r {
+    padding-right: 40px;
+    padding-left: 30px;
+}
+
+.container_r {
+    padding-right: 40px;
+    padding-left: 30px;
+}
+
+a {
+    color: #D39A5A;
+}
+
+.container_r .category_names {
+    font-size: 30px
+}
+
+.search {
+    font-size: 25px
+}
+
+.left_sidebar {
+    padding-left: 40px
+}
+
+.main_content {
+    padding-right: 0
+}
+
+
+#scrollUp {
+	bottom: 20px;
+	right: 70px;
+	background: #6E4A29;
+	color: #fff;
+	font-size: 15px;
+	font-family: sans-serif;
+	text-decoration: none;
+	opacity: .9;
+	padding: 14px 24px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-transition: background 200ms linear;
+	-moz-transition: background 200ms linear;
+	transition: background 200ms linear;
+}
+	#scrollUp:hover {
+		background: #000;
+        cursor: auto;
+	}

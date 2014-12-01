@@ -1,0 +1,17 @@
+{% extends "catalog/catalog_base.html"%}
+{% block css %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/about.css">
+{% endblock %}
+{% block other_scripts  %}
+	<script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}bootstrap/js/store_js/yandex_maps.js" type="text/javascript"></script>
+{% endblock %}
+{% block title %}
+ {{ flatpage.title }} - {{ site_name }}
+{% endblock %}
+{% block page_header %}
+	<h1 class="page-header">{{ flatpage.title }}</h1>
+{% endblock %}
+{% block main_content %}
+	{{ flatpage.content }}
+{% endblock %}

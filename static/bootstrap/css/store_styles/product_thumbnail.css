@@ -1,0 +1,90 @@
+/*Общий класс миниатюры*/
+.products_min {
+    padding-right: 60px;
+    padding-bottom: 40px;
+}
+
+/*миниатюры*/
+.products_min .thumbnail{
+    background-color: #fbe0b9;
+    max-height: 470px ;
+    border-color: #1F0F06
+}
+
+/*Описание, цена, вес и тд - родительский класс*/
+.products_min .caption {
+    height: 130px;
+}
+.products_min .caption a{
+    color: #1F0F06 ;
+}
+.products_min .caption hr {
+    border-color: #1F0F06;
+}
+
+/*название продукта*/
+.caption .name_product{
+    text-align: center;
+    font-size: 21px;
+}
+
+/*цена продукта*/
+.products_min .caption .price_weight .thumb_price{
+    height: 33px;
+    color: #4e3d20;
+    border: 1px #1f0f06 solid;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #fbe1af;
+    text-align: center;
+    padding-top: 3px;
+    font-size: 18px
+}
+
+/*div кнопки "Добавить в корзину" */
+.products_min .price_weight .add_order {
+    padding-right: 20px;
+}
+
+.products_min .price_weight .add_order .detail_button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    float: right;
+    width: 110px;
+    background-color: #6E4A29;
+    color: #ffffff
+}
+
+
+/*Добавить в корзину- кнопка*/
+.products_min .caption .price_weight .add_button {
+    float: right;
+    width: 110px;
+    background-color: #6E4A29;
+    color: #ffffff
+}
+
+.products_min .caption .price_weight .old_price {
+    text-decoration: line-through;
+    font-size: 17px;
+    margin-left: 7px;
+}
+
+.products_min .caption .price_weight .new_price {
+    color: red;
+}

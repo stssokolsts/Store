@@ -1,38 +1,39 @@
 {% extends "catalog/catalog_base.html" %}
 {% load checkout_tags %}
 {% block css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/checkout.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/checkout.css">
 {% endblock %}
 {% block page_header %}
-<h1 class="page-header">Оформление заказа</h1>
+	<h1 class="page-header">Оформление заказа</h1>
 {% endblock %}
 {% block main_content %}
-{% if not request.user.is_authenticated %}
-<div class="fr">
-</div>
-{% endif %}
-{% if error_message %}
-<ul class="errorlist">
-    <li>{{ error_message }}</li>
-</ul>
-{% endif %}
-<div class="row">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
-        <form action="." method="post">
-            {% csrf_token %}
-	        <fieldset class="scheduler-border">
-		        <legend class="scheduler-border">Контактная информация</legend>
-		        {{ form.as_p }}
-	            <button type="submit" class="btn btn-default">Отправить</button>
-	        </fieldset>
+	{% if not request.user.is_authenticated %}
+		<div class="fr">
+		</div>
+	{% endif %}
+	{% if error_message %}
+		<ul class="errorlist">
+		    <li>{{ error_message }}</li>
+		</ul>
+	{% endif %}
+	<div class="row">
+	    <div class="col-md-3">
+	    </div>
+	    <div class="col-md-6">
+	        <form action="." method="post">
+	            {% csrf_token %}
+		        <fieldset class="scheduler-border">
+			        <legend class="scheduler-border">Контактная информация</legend>
+			        {{ form.as_p }}
+		            <button type="submit" class="btn btn-default">Отправить</button>
+		        </fieldset>
 
-        </form>
 
-    </div>
-    <div class="col-md-3">
+	        </form>
 
-    </div>
-</div>
+	    </div>
+	    <div class="col-md-3">
+
+	    </div>
+	</div>
 {% endblock %}

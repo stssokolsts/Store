@@ -42,16 +42,18 @@ def add_to_cart(request, postdata):
     print (fillings)
     p = get_object_or_404(Product, slug=product_slug)
     if not p.weight:
-        weight = postdata.get('weight',0.96)
+        weight = postdata.get('weight',1)
     else:
-        weight = postdata.get('weight',p.weight)
+        weight = p.weight
     image = p.image
     print (weight)
     cart_products = get_cart_items(request)
+    print(list(cart_products))
     product_in_cart = False
     # check to see if item is already in cart
     for cart_item in cart_products:
-        if cart_item.product.id == p.id and not cart_item.product.choice_weight:
+        if cart_item.product.id == p.id and not p.choice_weight:
+            print('in cart')
             cart_item.augment_quantity(quantity)
             product_in_cart = True
     if not product_in_cart:   # create and save a new cart item

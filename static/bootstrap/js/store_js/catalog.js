@@ -4,6 +4,7 @@
 
 function add_cart_from_catalog() {
     var id = this.id;
+    alert(id);
     $.ajax({
         url: document.documentURI,
         type: "POST",
@@ -19,7 +20,8 @@ function add_cart_from_catalog() {
             }
             else if (json.success == 'True')
             {
-                $('#'+id).css({'background-color':'#4CAE4C','width':'117'})
+                alert("добавили!");
+                $('#'+id+'_button').css({'background-color':'#4CAE4C','width':'117'})
                     .html(' Добавлено! <i class="glyphicon glyphicon-ok icon-white"></i>').attr('disabled',true);
                 $('#count_products').text(json.count);
                // $('#go_cart').show();
@@ -57,19 +59,19 @@ function sort_products() {
         case "price":
             {
                 document.getElementById('price').id = 'pricea';
-                id = 'pricea'
+                id = 'pricea';
                 break
             }
         case "pricea":
             {
                 document.getElementById('pricea').id = 'priced';
-                id = 'priced'
+                id = 'priced';
                 break
             }
         case "priced":
             {
                 document.getElementById('priced').id = 'pricea';
-                id = 'pricea'
+                id = 'pricea';
                 break
             }
     }
@@ -190,6 +192,7 @@ function sort_products() {
                     else if (s_p.attr('id') == "pricea")
                         document.getElementById('pricea').id = "price";
                 }
+                $('.add_form').submit(add_cart_from_catalog);
             }
         });
     });
@@ -199,15 +202,19 @@ function load_products() {
     /*$(".products_min").css("display", "none").fadeIn(500);
     $(".category_min").css("display", "none").fadeIn(500);*/
 }
+$(function () {
+    $.scrollUp({
+        topDistance: '590',
+        animation: 'fade',
+        scrollText: 'Наверх'
+    });
+});
 
 function prepareDocument() {
     load_products();
     $(".sort span").click(sort_products);
-    //$("#cart").on('submit',add_cart);
-    $('.add_button').click(add_cart_from_catalog);
+    $('.add_form').submit(add_cart_from_catalog);
 }
 
+
 $(document).ready(prepareDocument);
-$(document).bind("ajaxComplete",function() {
-    $('.add_button').click(add_cart_from_catalog);
-});

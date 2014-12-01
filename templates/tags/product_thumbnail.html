@@ -6,22 +6,22 @@
     {% if discount %} <img class="discounts_img img-responsive" src="{% static "bootstrap/img/1212.gif" %}"> {% endif %}
         <div class="thumbnail  {% if discount %} discounts {% endif %}">
             <div>
-                {% if detail %}
+                {% if p.detail %}
                 <a href="{{ p.get_absolute_url }}">
                 <img id="" class="img-responsive lazy_load" data-original="{% static p.image %}" src="{% static p.image %}" alt="{{ p.name }}">
                 </a>
                 {% else %}
-                <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %} " data-gallery alt=""></a>
+                <a title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
                 {% endif %}
             </div>
             <div class="caption">
-                {% if detail %}
+                {% if p.detail %}
                 <a href="{{ p.get_absolute_url }}">
                     <h4 class="name_product"> {{ p.name }}
                     </h4>
                 </a>
                 {% else %}
-				     <a href="{% static p.image %}"><h4 class="name_product">
+				     <a href="{% static p.image %}" data-gallery><h4 class="name_product">
 					     {{ p.name }}
                     </h4></a>
                 {% endif %}
@@ -43,14 +43,14 @@
                     </div>
                     <div class="col-md-5 add_order">
                     {% if not p.choice_weight %}
-	                    <form method="post" action="." class="cart">
+	                    <form method="post" action="." class="cart add_form" id="{{ p.slug }}">
                             {% csrf_token %}
 		                    <input id="id_product_slug" name="product_slug" value="{{ p.slug}}" type="hidden">
-		                    <button id="{{ p.slug }}" class="btn add_button">{% if p.choice_weight %}Подробнее{% else %}В корзину
-			                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>{% endif %}
+		                    <button id="{{ p.slug }}_button" class="btn add_button" type="submit">В корзину
+			                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>
 						</form>
                     {% else %}
-	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button>Подробнее</div></a>
+	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button" style="">Подробнее</div></a>
                     {% endif %}
                     </div>
                 </div>

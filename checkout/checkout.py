@@ -50,10 +50,12 @@ def create_order(request):
         cart.empty_cart(request)
 
         # save profile info for future orders
-        #if request.user.is_authenticated():
-            #from account import profile
-            #profile.set(request)
+        if request.user.is_authenticated():
+            from accounts import profile
+            print ("profile")
+            profile.set(request)
     return order
+
 
 def process(request):
     order = create_order(request)

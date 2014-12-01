@@ -1,13 +1,13 @@
 {% extends "catalog/catalog_base.html" %}
 {% block css %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/category.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/product_thumbnail.css">
 {% endblock %}
 {% block page_header %}
 	<h1 class="page-header">{{ c.name }}</h1>
 {% endblock %}
 {% block main_content %}
-<!-- Projects Row -->
-<div class="row sort_choice">
+<div class="row sort_choice ">
 		<div class="sort">
 			Сортировать по :
 			<span class="sort_n" id ="name">

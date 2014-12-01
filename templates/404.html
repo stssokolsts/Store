@@ -1,0 +1,22 @@
+{% extends "catalog/catalog_base.html" %}
+{% block css %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/errors_page.css">
+{% endblock %}
+{% block page_header  %}
+	<h1 class="page-header">
+		Страница не найдена
+	</h1>
+{% endblock %}
+{% block main_content %}
+	<div class="row error">
+		<div class="col-md-5">
+			<img  class="img-responsive error_img" src="{{ STATIC_URL }}image/31.png">
+		</div>
+		<div class="col-md-7">
+			<p class = "error_text1" >Страница,которую вы ищите,не существует</p>
+	<p  class = "error_text1" >Вы можете вернуться <a href="javascript:history.back()">назад</a>, воспользоваться меню, либо перейти на
+		<a href="{% url 'catalog_home' %}">главную</a></p>
+		</div>
+	</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@
  * Created by Евгений on 15.11.2014.
  */
 
-function yandex_load () {
+$(function () {
     ymaps.ready(init);
     var myMap,
         myPlacemark;
@@ -20,7 +20,7 @@ function yandex_load () {
 
         myMap.geoObjects.add(myPlacemark);
     }
-}
+});
 
 function prepareDocument() {
     yandex_load();
