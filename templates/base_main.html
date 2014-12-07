@@ -27,8 +27,8 @@
 						</p>
 
 						{% else %}
-							 <a href="#sign_up_modal"  data-toggle="modal">Зарегистрироваться</a>
-							 <a href="#sign_up_modal"  data-toggle="modal">Войти</a>
+							 <a href="#" class="get-reg-modal" >Зарегистрироваться</a>
+							 <a href="#" class="get-login-modal">Войти</a>
 			            {% endif %}
 		            </div>
 	                <div class="row mainmenu" id = "mainmenu">
@@ -63,13 +63,6 @@
 	    <!-- Content -->
 	    {% block content %}
 	    {% endblock %}
-	<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sign_up_modal">
-        Посмотреть демо
-      </button>
-<a href="#sign_up_modal"  data-toggle="modal">ага</a>
-<a href="#sign_up_modal" role="button" class="btn" data-toggle="modal">Я думаю так</a>
-<!-- Modal -->
 {% register_modal %}
 		<div id="footer">
 	        <div class="footer">
@@ -116,4 +109,6 @@
 		     </div>
 		</div>
 	</div>
+
+
 {% endblock %}

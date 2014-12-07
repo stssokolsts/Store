@@ -1,7 +1,10 @@
 {% extends "catalog/catalog_base.html" %}
 {% load catalog_filters %}
 {% block css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/cart.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/cart.css">
+{% endblock %}
+{% block other_scripts %}
+	<script src="{{ STATIC_URL }}bootstrap/js/store_js/cart.js"></script>
 {% endblock %}
 {% load catalog_tags %}
 {% load staticfiles %}
@@ -9,98 +12,153 @@
 	<h1 class="page-header">Корзина</h1>
 {% endblock %}
 {% block main_content %}
-<div class="row">
-    <div class="col-md-12" style="padding-bottom: 20px">
-        <a href="javascript:history.back()" style="font-size: 18px; color: #6E4A29;">
-        <span class="glyphicon glyphicon-arrow-left"></span> Назад в каталог
-        </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12" style="padding-left: 20px; padding-right: 20px">
-        <table class="table table-striped" cellspacing='0'>
-            <!-- cellspacing='0' is important, must stay -->
-            <tr>
-                <th style="max-width: 10px">Продукт</th>
-                <th>Название</th>
-                <th>Цена</th>
-	            <th style="max-width: 60px">Вес</th>
-                <th style="max-width: 60px">Количество</th>
-                <th style="max-width: 70px">Стоимость</th>
-                <th style="max-width: 30px">Действия</th>
-            </tr>
-            {% if cart_items %}
-            {% for item in cart_items %}
-            <tr>
-                <td>
-                    <a href="{{ item.get_absolute_url }}">
-                    <img class="img-responsive" src="{% static item.image %}" style="max-height: 50px; margin-left: 0">
-                    </a>
-                </td>
-                <td>{{ item.name }}</td>
-                <td id="price_{{ item.name }}">{{ item.price|currency }}</td>
-	            <td>
-	                {{ item.weight }} кг
-                </td>
-                <td style="text-align: center; {% if not item.product.choice_weight %} vertical-align:middle;{% endif %}">
-	                <form method="post" action="." class="cart">
-                        {% csrf_token %}
-					{% comment %}{{ item.quantity }}{% endcomment %}
-		             {% if item.product.choice_weight %}
-		                  {{ item.quantity }}
-			          {% else %}
-	                <input name="quantity" type="text"  class = "center-block form-control" name="quantity"
-	                        value="{{ item.quantity }}" id="quantity" size="2" maxlength="5" style="max-width: 60px" />
-		             {% endif %}
-                </td>
+	<div id="cart_page">
+		<div class="row cart_page">
+		    <div class="col-md-12 table_cart">
+		        <table class="table table-striped" cellspacing='0' id="cart">
+		            <tr>
+		                <th class="product-th">Продукт</th>
+		                <th class="name-th">Название</th>
+		                <th class="price-th">Цена</th>
+		                <th class="weight-th">Вес</th>
+		                <th class="count-th">Количество</th>
+		                <th class="total-th">Стоимость</th>
+		                <th class="do-th">Действия</th>
+		            </tr>
+		            {% if cart_items %}
+			            {% for item in cart_items %}
+				            <tr id="{{ item.product.slug }}_tr">
+				                <td class="product-td" >
+				                    <a href="{{ item.get_absolute_url }}">
+				                        <img class="img-responsive" src="{% static item.image %}">
+				                    </a>
+				                </td>
+				                <td class="name-td">{{ item.name }}</td>
+				                <td class="price-td" id="price_{{ item.name }}">{{ item.price|currency }}</td>
+				                <td class="weight-td"> {{ item.weight }} кг </td>
+				                <td class="count-td">
+				                    <form method="post" action="." class="cart" id="{{ item.product.slug }}_form">
+					                {% csrf_token %}
+				                    <input type="hidden" name="item_id" value="{{ item.id }}" />
+				                    {% if not item.product.choice_weight %}
+					                        {% comment %}{{ item.quantity }}{% endcomment %}
+					                        <input name="quantity"  type="text"  class = "center-block form-control"
+					                            value="{{ item.quantity }}" id="quantity" size="2" maxlength="5" />
+				                    {% else %}
+				                            {{ item.quantity }}
+				                    {% endif %}
+				                </td>
+				                <td class="total-td" id="total_">{{ item.total|currency }}</td>
+				                <td class="do-td">
+					                <div class="center-block">
+							               {% comment %} <button type="submit" name="submit" value="Update" class="btn btn-xs button-update">
+								                <i class="glyphicon glyphicon-share-alt"></i>
+						                    </button>{% endcomment %}
+							                <button type="submit" name="submit" value="Remove" id="{{ item.product.slug }}"
+							                        class="btn btn-xs button-remove ">
+							                    <i class="glyphicon glyphicon-remove"></i>
+							                </button>
+					                </div>
+					                </form>
+				                </td>
+				            </tr>
+			            {% endfor %}
+		            {% else %}
+			            <tr>
+			                <td colspan="7">
+			                    Ваша корзина пуста
+			                </td>
+			            </tr>
+		            {% endif %}
+		        </table>
+		    </div>
+		</div>
+		<div class="row" >
+		    <div class="col-md-12 cart_info_total">
+		        <h4 class="pull-right">Всего: {{ cart_subtotal|currency }}</h4>
+		    </div>
+		</div>
+		<div class="row">
+		    {% if error_message %}
+			    <ul class="errorlist">
+			        <li>{{ error_message }}</li>
+			    </ul>
+		    {% endif %}
+		</div>
+		    <div class="row contact_row" >
+		        <h2 class="cart_info_label">Контактная информация</h2>
+		        <div class="contact-form">
+		            <form action="." method="post">
+		                {% csrf_token %}
+		                <div class="row">
+		                    <div class="col-md-4">
+		                        <label class="name_label">
+		                            {{ form_checkout.name.label }}:
+		                        </label>
+		                    </div>
+		                    <div class="col-md-5{% if user.is_authenticated %} id_auth {% endif %}">
+		                        {{ form_checkout.name }}
+		                        <span class="help-block">
+		                            {{ form_checkout.name.help_text }}
+		                        </span>
+		                    </div>
+		                    <div class="col-md-3 errors_text" id = '{{ form_checkout.name.name  }}_error'>
+			                    {{ form_checkout.name.errors }}
+		                    </div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-4">
+		                        <label class="name_label">
+		                            {{ form_checkout.phone.label }}:
+		                        </label>
+		                    </div>
+		                    <div class="col-md-5 {% if user.is_authenticated %} id_auth {% endif %}">
+		                        {{ form_checkout.phone }}
+		                        <span class="help-block">
+		                            {{ form_checkout.phone.help_text }}
+		                        </span>
+		                    </div>
+		                    <div class="col-md-3 errors_text" id = '{{ form_checkout.phone.name  }}_error'>
+			                    {{ form_checkout.phone.errors }}
+		                    </div>
+		                </div>
+			            <div class="row">
+			                <div class="col-md-4">
+			                        <label class="name_label">
+			                            {{ form_checkout.email.label }}:
+			                        </label>
+			                    </div>
+			                <div class="col-md-5 {% if user.is_authenticated %} id_auth {% endif %}">
+			                        {{ form_checkout.email }}
+			                        <span class="help-block">
+			                        {{ form_checkout.email.help_text }}
+			                        </span>
+			                    </div>
+			                <div class="col-md-3 errors_text" id = '{{ form_checkout.email.name  }}_error'>
+				                {{ form_checkout.email.errors }}
+			                </div>
+			            </div>
 
-                <td id="total_">{{ item.total|currency }}</td>
-	           {% comment %} {% if  %}{% endcomment %}
-                <td style="text-align: center; vertical-align:middle;">
-
-                        <div class="center-block">
-                            <input type="hidden" name="item_id" value="{{ item.id }}" />
-	                        {% if not item.product.choice_weight %}
-		                        <button type="submit" name="submit" value="Update" class="btn btn-xs "
-		                                style="background-color: #dbff4a"><i class="glyphicon glyphicon-share-alt"></i>
-	                        {% endif %}
-
-
-                            </button>
-                            <button type="submit" name="submit" value="Remove" style="background-color: #ff8364" class="btn btn-xs ">
-                            <i style="" class="glyphicon glyphicon-remove"></i>
-                            </button>
-                            {% comment %}<input type="submit" name="submit" value="Remove"/>{% endcomment %}
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="6" style="height:30px;">
-                    Ваша корзина пуста
-                </td>
-            </tr>
-            {% endif %}
-        </table>
-    </div>
-</div>
-<div class="row" style="padding-bottom: 20px">
-    <div class="col-md-12">
-	    <h4 class="pull-right" style="padding-right: 20px">Всего: {{ cart_subtotal|currency }}</h4>
-    </div>
-</div>
-{% if cart_items %}
-<form method="POST" action=".">
-    {% csrf_token %}
-    <input type="hidden" name="submit" value="Checkout" />
-    <!-- input type="image" name="Google Checkout" alt="Fast checkout through Google"
-        src="http://sandbox.google.com/checkout/buttons/checkout.gif?merchant_id={{ merchant_id }}
-              &w=180&h=46&style=white&variant=text&loc=en_US"  height="46" width="180" /-->
-    <button type="submit" value="Checkout" class="btn pull-right" style="background-color: #6E4A29; color: #ffffff">
-    Разместить заказ <i class="glyphicon glyphicon-tag"></i>
-    </button>
-</form>
-{% endif %}
+		        </div>
+		    </div>
+		<h2 class="cart_info_label">Информации о заказе</h2>
+		<div class="row info_row">
+			<p>Сделайте заявку на нашем сайте в любое время суток, заполнив простую форму заказа,
+				после чего с Вами свяжутся наши операторы для подтверждения заявки и выяснения Ваших пожеланий.
+				Также заказы принимаются в магазине <a href="/about/">"Вкусный праздник"</a> </p>
+			<p><strong>Срок выполнения заказа:</strong> пять - шесть дней с момента внесения оплаты.
+			    Для массовых тортов и пирижных возможен самовывоз в течение 24 часов.
+			    Точные сроки выполнения заказа согласовывайте с нашими менеджерами.
+			</p>
+		    <div class="form_order">
+		        {% if cart_items %}
+			            <input type="hidden" name="submit" value="Checkout" />
+			            <button type="submit" value="Checkout" class="btn pull-right button-order">
+			            Разместить заказ <i class="glyphicon glyphicon-tag"></i>
+			            </button>
+			        </form>
+		        {% endif %}
+		    </div>
+		</div>
+	</div>
 {% endblock %}

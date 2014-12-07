@@ -4,6 +4,7 @@ from catalog.models import Product
 from django.shortcuts import get_object_or_404 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core import urlresolvers
+from django.core.exceptions import ObjectDoesNotExist
 import json
 
 import decimal# not needed yet but we will later
@@ -42,7 +43,7 @@ def add_to_cart(request, postdata):
     print (fillings)
     p = get_object_or_404(Product, slug=product_slug)
     if not p.weight:
-        weight = postdata.get('weight',1)
+        weight = postdata.get('weight', 1)
     else:
         weight = p.weight
     image = p.image
@@ -77,28 +78,50 @@ def cart_distinct_item_count(request):
 
 
 def get_single_item(request, item_id):
-    """Получаем CartItem"""
+    """получаем CartItem или пустой объект"""
+    try:
+        print("obj")
+        obj = CartItem.objects.get(id=item_id, cart_id=_cart_id(request))
+
+        print(obj)
+        print(get_object_or_404(CartItem, id=item_id, cart_id=_cart_id(request)))
+    except ObjectDoesNotExist:
+        obj = None
+    return obj
+
+def get_single_item_or_404(request, item_id):
+    """Получаем CartItem или 404"""
     return get_object_or_404(CartItem, id=item_id, cart_id=_cart_id(request))
 
 # update quantity for single item
 def update_cart(request):
+    print("update")
     postdata = request.POST.copy()
     item_id = postdata['item_id']
     quantity = postdata['quantity']
-    cart_item = get_single_item(request, item_id)
+    print(quantity)
+    cart_item = get_single_item_or_404(request, item_id)
     if cart_item:
         if int(quantity) > 0:
             cart_item.quantity = int(quantity)
+            print(cart_item.quantity)
             cart_item.save()
         else:
             remove_from_cart(request)
 
 
-# remove a single item from cart
-def remove_from_cart(request):
+def remove_from_cart(request, ajax = False):
+    """удаление из карты, 404 если обычный запрос"""
     postdata = request.POST.copy()
     item_id = postdata['item_id']
-    cart_item = get_single_item(request, item_id)
+    if ajax == True:
+        cart_item = get_single_item(request, item_id)
+        if cart_item:
+            cart_item.delete()
+            return True
+        else:
+            return False
+    cart_item = get_single_item_or_404(request, item_id)
     if cart_item:
         cart_item.delete()
 

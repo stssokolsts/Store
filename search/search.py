@@ -26,12 +26,14 @@ def products(search_text):
 def products_def(search_text):
     """ get products matching the search text """
     words = _prepare_words(search_text)
+    print(words)
     products = Product.active.all()
+    print(products)
     results = {}
     for word in words:
         products = products.filter(Q(name__icontains=word) |
         Q(description__icontains=word) |
-        Q(brand__icontains=word) |
+        #Q(brand__icontains=word) |
         Q(meta_keywords__icontains=word))
         results['products'] = products
     return results

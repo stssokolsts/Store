@@ -4,7 +4,7 @@
 
 function add_cart_from_catalog() {
     var id = this.id;
-    alert(id);
+    //alert(id);
     $.ajax({
         url: document.documentURI,
         type: "POST",
@@ -20,7 +20,7 @@ function add_cart_from_catalog() {
             }
             else if (json.success == 'True')
             {
-                alert("добавили!");
+                //alert("добавили!");
                 $('#'+id+'_button').css({'background-color':'#4CAE4C','width':'117'})
                     .html(' Добавлено! <i class="glyphicon glyphicon-ok icon-white"></i>').attr('disabled',true);
                 $('#count_products').text(json.count);

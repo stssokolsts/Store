@@ -6,8 +6,8 @@ from catalog.models import Filling
 
 class AddToCart(forms.Form):
     quantity = forms.IntegerField(widget=forms.TextInput(attrs={'size':'2', 'value':'1', 'class': 'form-control'}),
-                                  error_messages={'invalid':'Please enter a valid quantity.'},
-                                  label='Количество: ',
+                                  error_messages={'invalid' : 'Please enter a valid quantity.'},
+                                  label='Количество',
                                   min_value=1,
                                   max_value=100)
 
@@ -17,6 +17,7 @@ class AddToCart(forms.Form):
         super(AddToCart, self).__init__(*args, **kwargs)
 
     def clean(self):
+        print("add_to_cart")
         if self.request:
             if not self.request.session.test_cookie_worked():
                 raise forms.ValidationError("Cookies must be enabled.")

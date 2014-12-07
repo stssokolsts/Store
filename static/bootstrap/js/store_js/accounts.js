@@ -62,7 +62,8 @@ function registration(e) {
             csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
         },
         success: function(json) {
-            if (json.success == 'False')
+            alert(json.success);
+            if (json.success == false)
             {
                 for (var i = 0; i < json.errors.length; i++)
                 {
@@ -71,7 +72,7 @@ function registration(e) {
 
                 }
             }
-            else if (json.success == 'True')
+            else if (json.success == true)
             {
                 $('#myModal').modal('hide');
                 location.reload();
@@ -84,13 +85,24 @@ function registration(e) {
     return false;
 }
 
-/*function nextpage () {
-    $('#nexpage').append("<input value")
-}*/
+
+function showregister() {
+    $('#li_register').tab('show');
+    $('#sign_up_modal').modal();
+    return false
+}
+
+function showlogin() {
+    $('#li_login').tab('show');
+    $('#sign_up_modal').modal();
+    return false
+}
 
 function prepareDocument() {
     $("#login_form").on("submit",login);
     $("#reg_form").on("submit",registration);
+    $('.get-reg-modal').on("click",showregister);
+    $('.get-login-modal').on("click",showlogin);
     //$("#login_button").onclick(login)
 }
 

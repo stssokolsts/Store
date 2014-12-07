@@ -15,6 +15,7 @@ from accounts import profile
 from forms import MyAuthenticationForm
 from random import choice
 from string import letters
+from models import UserProfile
 import json
 
 
@@ -72,12 +73,24 @@ def register_ajax(request):
             response_dict.update({'success': 'False','errors': data})
     return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
 
-@login_required
+#@login_required
 def my_account(request, template_name="registration/my_account.html"):
     """ page displaying customer account information, past order list and account options """
+    if request.user.is_authenticated():
+        orders = Order.objects.filter(user=request.user)
+        orders_item = {}
+        for order in orders:
+            orders_item.update({order : OrderItem.objects.filter(order=order)})
+        print(orders_item)
+        userprofile = UserProfile.objects.get(id = request.user.id)
+        name = userprofile.name
+        #u = get_object_or_404(UserProfile, id = userprofile.id)
+        #products = u.favorites_set.all()
+        #print(u.favorites_set.all())
+        print("ee")
+        products = userprofile.favorites.all()
+        #print(name)
     page_title = 'Мой аккаунт'
-    orders = Order.objects.filter(user=request.user)
-    name = request.user.username
     return render_to_response(template_name, locals(), context_instance=RequestContext(request))
 
 @login_required

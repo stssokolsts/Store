@@ -3,6 +3,7 @@ from models import OrderItem
 from Store import settings
 from django.core import urlresolvers
 import urllib
+import decimal
 
 
 def get_checkout_url(request):
@@ -25,6 +26,7 @@ def create_order(request):
     order.user = None
     if request.user.is_authenticated():
         order.user = request.user
+        order.email = order.user.email
     order.status = Order.SUBMITTED
     order.save()
 
@@ -32,6 +34,7 @@ def create_order(request):
         """ if the order save succeeded """
         cart_items = cart.get_cart_items(request)
         for ci in cart_items:
+            print("weight")
             """ create order item for each cart item """
             from models import OrderItem
             oi = OrderItem()
@@ -40,13 +43,18 @@ def create_order(request):
             oi.price = ci.price  # now using @property
             if ci.description:
                 oi.description = ci.description
-            if ci.weight:
-                oi.wight = ci.weight
-            if ci.filling:
-                oi.filling = ci.filling
+            print("weight______1___")
+            print(ci.weight)
+            oi.weight = ci.weight
+            print(oi.weight)
+            print(oi.filling)
+            oi.filling = ci.filling
             oi.product = ci.product
             oi.save()
+            print("oi!!!")
+            print(oi)
         # all set, clear the cart
+
         cart.empty_cart(request)
 
         # save profile info for future orders
