@@ -25,20 +25,23 @@
 /*название продукта*/
 .caption .name_product{
     text-align: center;
-    font-size: 21px;
+    font-size: 22px;
 }
 
 /*цена продукта*/
 .products_min .caption .price_weight .thumb_price{
-    height: 33px;
+    height: 40px;
     color: #4e3d20;
     border: 1px #1f0f06 solid;
     -webkit-border-radius: 15px;
     border-radius: 15px;
     background-color: #fbe1af;
+
     text-align: center;
     padding-top: 3px;
-    font-size: 18px
+    font-size: 18px;
+    line-height: 35px;
+
 }
 
 /*div кнопки "Добавить в корзину" */
@@ -50,7 +53,7 @@
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 17px;
     font-weight: normal;
     line-height: 1.42857143;
     text-align: center;
@@ -65,26 +68,43 @@
     border: 1px solid transparent;
     border-radius: 4px;
     float: right;
-    width: 110px;
+    width: 130px;
     background-color: #6E4A29;
-    color: #ffffff
+    color: #ffffff;
+    height: 40px;
 }
 
 
 /*Добавить в корзину- кнопка*/
 .products_min .caption .price_weight .add_button {
     float: right;
-    width: 110px;
+    width: 130px;
+
     background-color: #6E4A29;
-    color: #ffffff
+    color: #ffffff;
+    height: 40px;
+    font-size: 17px;
 }
+
+/*Добавлено в корзину - кнопка*//*
+.products_min .caption .price_weight .add_button {
+    float: right;
+    width: 130px;
+    background-color: #6E4A29;
+    color: #ffffff;
+    height: 40px;
+    font-size: 17px;
+}*/
 
 .products_min .caption .price_weight .old_price {
     text-decoration: line-through;
-    font-size: 17px;
+    font-size: 18px;
     margin-left: 7px;
+    line-height: 35px;
 }
 
 .products_min .caption .price_weight .new_price {
     color: red;
+    font-size: 21px;
+    line-height: 35px;
 }

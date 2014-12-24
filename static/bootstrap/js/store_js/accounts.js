@@ -13,7 +13,7 @@ function login(e) {
         data: {
             username: $( "#login_form #id_username").val(),
             password : $("#login_form #id_password").val(),
-            csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+            csrfmiddlewaretoken: $("#login-tab input[name='csrfmiddlewaretoken']").val()
         },
         success: function(json) {
             if (json.success == 'False')
@@ -59,11 +59,10 @@ function registration(e) {
             email: $("#id_email").val(),
             password1: $("#id_password1").val(),
             password2: $("#id_password2").val(),
-            csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+            csrfmiddlewaretoken: $("#register input[name='csrfmiddlewaretoken']").val()
         },
         success: function(json) {
-            alert(json.success);
-            if (json.success == false)
+            if (json.success == 'False')
             {
                 for (var i = 0; i < json.errors.length; i++)
                 {
@@ -72,7 +71,7 @@ function registration(e) {
 
                 }
             }
-            else if (json.success == true)
+            else if (json.success == 'True')
             {
                 $('#myModal').modal('hide');
                 location.reload();

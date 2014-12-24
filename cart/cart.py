@@ -80,11 +80,7 @@ def cart_distinct_item_count(request):
 def get_single_item(request, item_id):
     """получаем CartItem или пустой объект"""
     try:
-        print("obj")
         obj = CartItem.objects.get(id=item_id, cart_id=_cart_id(request))
-
-        print(obj)
-        print(get_object_or_404(CartItem, id=item_id, cart_id=_cart_id(request)))
     except ObjectDoesNotExist:
         obj = None
     return obj
@@ -93,18 +89,25 @@ def get_single_item_or_404(request, item_id):
     """Получаем CartItem или 404"""
     return get_object_or_404(CartItem, id=item_id, cart_id=_cart_id(request))
 
-# update quantity for single item
-def update_cart(request):
-    print("update")
+
+def update_cart(request, is_ajax = False):
+    """обновление из карты, в случае ошибки вернет 404 если обычный запрос"""
     postdata = request.POST.copy()
     item_id = postdata['item_id']
     quantity = postdata['quantity']
-    print(quantity)
+    if is_ajax:
+        cart_item = get_single_item(request, item_id)
+        if cart_item:
+            cart_item.quantity = int(quantity)
+            print(cart_item.quantity)
+            cart_item.save()
+            return True
+        else:
+            return False
     cart_item = get_single_item_or_404(request, item_id)
     if cart_item:
         if int(quantity) > 0:
             cart_item.quantity = int(quantity)
-            print(cart_item.quantity)
             cart_item.save()
         else:
             remove_from_cart(request)
@@ -178,3 +181,30 @@ def add_to_cart_general(form_cart,request,p):
         return {'redirect': True, 'http_response': HttpResponse(json.dumps(response_dict), content_type='application/javascript')}
     else:
         return {'redirect': False}
+
+def remove_from_cart_ajax(request):
+    """удаление из корзины ajax'ом"""
+    success = remove_from_cart(request, ajax=True)
+    response_dict = {}
+    response_dict.update({'count': get_cart_items(request).count(),
+                          'cart_subtotal': cart_subtotal(request)})
+    if success==True:
+        response_dict.update({'success': 'True'})
+    else:
+        response_dict.update({'success': 'False'})
+    return response_dict
+
+
+def update_cart_ajax(request):
+    """изменение кол-во товаров ajax'ом"""
+    success = update_cart(request, is_ajax=True)
+    response_dict = {}
+    response_dict.update({'cart_subtotal': cart_subtotal(request)})
+    if success==True:
+        response_dict.update({'success': 'True',
+                              'total': float(get_single_item(request,request.POST['item_id']).total),
+                              'quantity': get_single_item(request,request.POST['item_id']).quantity})
+    else:
+        response_dict.update({'success': 'False',
+                              'count': get_cart_items(request).count()})
+    return response_dict

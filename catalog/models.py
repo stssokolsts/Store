@@ -4,6 +4,8 @@ from djangosphinx.models import SphinxSearch
 from django.db.models.signals import post_save, post_delete
 from caching.caching import cache_update, cache_evict
 
+LAST_PRODUCT = "last_products"
+
 class ActiveCategoryManager(models.Manager):
     def get_query_set(self):
         return super(ActiveCategoryManager, self).get_query_set().filter(is_active=True)
@@ -71,7 +73,7 @@ class Product(models.Model):
                             help_text='Уникальное значение, будет URLом этого продукта, создаётся автоматчески из имени')
     brand = models.ForeignKey(Brand,null=True, blank=True,
                               help_text='Выбор фирмы - изготовителя')
-    price = models.DecimalField(max_digits=9,decimal_places=2)
+    price = models.FloatField()
     old_price = models.DecimalField(max_digits=9,decimal_places=2,
                                     blank=True,default=0.00)
     is_active = models.BooleanField(default=True)

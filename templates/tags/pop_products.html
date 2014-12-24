@@ -1,0 +1,10 @@
+{% load staticfiles %}
+<h3 style="border-bottom: 1px solid #1F0F06; padding-bottom: 3px; margin-bottom: 20px">Популярные товары</h3>
+{% for p in pop_products %}
+	<div class="col-md-6" style="font-size: 14px; text-align: center; padding: 0">
+		<div class="thumbnail" style="background-color: #FBE0B9; margin: 4px">
+		<a style="color: inherit" href="{{ p.get_absolute_url }}"> <img src="{% static p.image %}" class="img-responsive">
+		<div style="padding-top: 5px"><strong>{{ p.name }}</strong></div></a>
+		</div>
+	</div>
+{% endfor %}

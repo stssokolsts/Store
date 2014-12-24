@@ -7,8 +7,11 @@ from django.template import RequestContext
 from cart import cart
 from django.http import HttpResponseRedirect, HttpResponse
 import json
+import operator
 from django.core.cache import cache
 from Store.settings import CACHE_TIMEOUT
+from django.db.models import Q
+from sessions import set_last_product
 #from stats import stats
 #from EcomStore.settings import PRODUCTS_PER_ROW
 
@@ -96,11 +99,20 @@ def show_product(request, product_slug, template_name="catalog/product.html"):
         p = get_object_or_404(Product.active, slug=product_slug)
         cache.set(product_cache_key, p, CACHE_TIMEOUT)
     p = get_object_or_404(Product, slug=product_slug)
+    set_last_product(request,p.slug)
+    print(request.session["last_products"])
     categories = p.categories.all()
     page_title = p.name
     meta_keywords = p.meta_keywords
     meta_description = p.meta_description
     fillings = Filling.active.all()
+    m = meta_keywords.split(" ")
+    m = filter(None,m)
+    print("ага")
+    other_products = Product.object.filter(reduce(operator.or_, (Q(meta_keywords__icontains = word) for word in m)))
+    print(other_products)
+    other_products = other_products.exclude(slug__exact = product_slug)[:4]
+    print(other_products)
     postdata = request.POST.copy()
     if request.method == 'POST':
         if (p.choice_weight):

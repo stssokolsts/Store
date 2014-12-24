@@ -28,13 +28,13 @@
                 <hr>
                 <div class="row price_weight" >
                     <div class="col-md-7" >
-                        <div class="thumb_price">
+                        <div class="thumb_price" {%  if p.old_price > 0  %} style="background-color: #fafb5a;" {% endif %}>
 	                        {%  if p.old_price > 0  %}
 		                        <span class="new_price"> {{ p.price|currency }}</span>
 	                            <span class="old_price">{{ p.old_price|currency }}</span>
                             {% elif p.weight %}
-		                        <span> {{ p.price|currency }}</span>
-		                        | {{ p.weight }} кг
+		                        <span class="price"> {{ p.price|currency }}
+		                        | {{ p.weight }} кг</span>
 	                        {% else %}
 	                        <span> {{ p.price|currency }}</span>
 	                        {% endif %}

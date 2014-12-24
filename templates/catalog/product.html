@@ -13,7 +13,7 @@
     <div class="row product_detail">
         <div class="row">
 	        <div class="col-md-10">
-		        <h2>{{ p.name }}</h2>
+		        <h1 style="margin-bottom: 0; padding-left: 10px">{{ p.name }}</h1>
 	        </div>
 	        <div class="col-md-2">
 		        <div class="">
@@ -23,76 +23,40 @@
         </div>
         <hr>
         <!-- Product Image & Available Colors -->
-        <div class="col-md-7 image_detail" >
+        <div class="row">
+	        <div class="col-md-7 image_detail" >
             <div class="thumbnail" id="links">
                 <a  title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
             </div>
+	        </div>
+	        <!-- End Product Image & Available Colors -->
+	        <div class="col-md-5 product_info">
+		        {% if not p.choice_weight %}
+			        {% include "tags/product_detail.html" %}
+		        {% else %}
+	                {% include "tags/product_choice_detail.html" %}
+		        {% endif %}
+	        </div>
         </div>
-        <!-- End Product Image & Available Colors -->
-        <div class="col-md-5 product_info">
-	        {% if not p.choice_weight %}
-		        {% include "tags/product_detail.html" %}
-	        {% else %}
-                {% include "tags/product_choice_detail.html" %}
-	        {% endif %}
-        </div>
+	    <div class="row rec_div">
+			{% if other_products %}
+			{% comment %}<hr style="border-top-color: #1F0F06; margin-top: 70px">{% endcomment %}
+				<h3 style="margin-left: 15px; border-bottom: 1px solid; padding-bottom: 4px; margin-top: 70px">Похожие товары</h3>
+				<div class="row rec_thumb">
+					{% for p in other_products %}
+						<div class="col-md-3 thumb">
+							<a style="color: inherit" href={{ p.get_absolute_url }}>
+								<img src="{% static p.image %}" class="img-responsive rec_thumbnails">
+								<h4 style="text-align: center">{{ p.name }}</h4>
+							</a>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
     </div>
+
 </div>
-
-<div id="blueimp-gallery" class="blueimp-gallery">
-    <!-- The container for the modal slides -->
-    <div class="slides"></div>
-    <!-- Controls for the borderless lightbox -->
-    <h3 class="title"></h3>
-    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-    <div class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ p.name }}</h4>
-                </div>
-                <div class="modal-body next"></div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Основа торта</h4>
-      </div>
-      <div class="modal-body">
-
-       {% for f in fillings %}
-	       <div class="row">
-	       <div class="col-md-12 filling_text">
-	            <h3 class="pull-center">{{ f.name }}</h3>
-	       </div>
-	       </div>
-	       <div class="row">
-	            <div class="col-md-6">
-	                <img class="img-responsive" src="{% static f.image.url %}" alt="">
-	            </div>
-	            <div class="col-md-6">
-		            <p>{{ f.description }}</p>
-	            </div>
-	       </div>
-
-
-	   {% endfor %}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-primary">Сохранить изменения</button>
-      </div>
-    </div>
-  </div>
-</div>
+{% include "tags/show_product_modal.html" %}
+{% include "tags/fillings_modal.html" %}
 {% endblock %}

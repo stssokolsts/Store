@@ -1,10 +1,16 @@
 {% extends "catalog/catalog_base.html" %}
 {% load catalog_filters %}
 {% block css %}
+	<link href="https://dadata.ru/static/css/lib/suggestions-4.8.css" type="text/css" rel="stylesheet" />
 	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/cart.css">
+	<link href="https://dadata.ru/static/css/lib/suggestions-4.8.css" type="text/css" rel="stylesheet" />
 {% endblock %}
 {% block other_scripts %}
 	<script src="{{ STATIC_URL }}bootstrap/js/store_js/cart.js"></script>
+	<script type="text/javascript" src="https://dadata.ru/static/js/lib/jquery.suggestions-4.8.min.js"></script>
+	<!--[if lt IE 10]>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+	<![endif]-->
 {% endblock %}
 {% load catalog_tags %}
 {% load staticfiles %}
@@ -27,7 +33,7 @@
 		            </tr>
 		            {% if cart_items %}
 			            {% for item in cart_items %}
-				            <tr id="{{ item.product.slug }}_tr">
+				            <tr id="{{ item.product.slug }}">
 				                <td class="product-td" >
 				                    <a href="{{ item.get_absolute_url }}">
 				                        <img class="img-responsive" src="{% static item.image %}">
@@ -37,29 +43,36 @@
 				                <td class="price-td" id="price_{{ item.name }}">{{ item.price|currency }}</td>
 				                <td class="weight-td"> {{ item.weight }} кг </td>
 				                <td class="count-td">
-				                    <form method="post" action="." class="cart" id="{{ item.product.slug }}_form">
-					                {% csrf_token %}
-				                    <input type="hidden" name="item_id" value="{{ item.id }}" />
-				                    {% if not item.product.choice_weight %}
-					                        {% comment %}{{ item.quantity }}{% endcomment %}
-					                        <input name="quantity"  type="text"  class = "center-block form-control"
-					                            value="{{ item.quantity }}" id="quantity" size="2" maxlength="5" />
-				                    {% else %}
-				                            {{ item.quantity }}
-				                    {% endif %}
+				                    <form method="post" action="." class="cart" id="">
+				                        {% csrf_token %}
+					                    <input type="hidden" name="item_id" value="{{ item.id }}" />
+			                            {% if not item.product.choice_weight %}
+							                    <noscript>
+							                        <input name="quantity"  type="text"  class = "center-block form-control"
+							                            value="{{ item.quantity }}" id="quantity" size="2" maxlength="5" />
+							                    </noscript>
+							                    <script type="text/javascript">
+							                        document.write('<a href="#" class="update_cart" id="product_minus"><i style="padding-right: 5px" class="glyphicon glyphicon-minus"></i></a><span class="item_quantity">{{ item.quantity }}</span><a href="#" id="product_plus"  class="update_cart"><i style="padding-left: 5px" class="glyphicon glyphicon-plus"></i></a>');
+							                    </script>
+					                    {% else %}
+					                        {{ item.quantity }}
+					                    {% endif %}
+
 				                </td>
-				                <td class="total-td" id="total_">{{ item.total|currency }}</td>
+				                <td class="total-td" id="total_{{ item.product.slug }}">{{ item.total|currency }}</td>
 				                <td class="do-td">
 					                <div class="center-block">
-							               {% comment %} <button type="submit" name="submit" value="Update" class="btn btn-xs button-update">
-								                <i class="glyphicon glyphicon-share-alt"></i>
-						                    </button>{% endcomment %}
+						                    <noscript>
+								                <button type="submit" name="submit" value="Update" class="btn btn-xs button-update">
+									                <i class="glyphicon glyphicon-share-alt"></i>
+							                    </button>
+						                    </noscript>
 							                <button type="submit" name="submit" value="Remove" id="{{ item.product.slug }}"
 							                        class="btn btn-xs button-remove ">
 							                    <i class="glyphicon glyphicon-remove"></i>
 							                </button>
+						                </form>
 					                </div>
-					                </form>
 				                </td>
 				            </tr>
 			            {% endfor %}
@@ -78,16 +91,9 @@
 		        <h4 class="pull-right">Всего: {{ cart_subtotal|currency }}</h4>
 		    </div>
 		</div>
-		<div class="row">
-		    {% if error_message %}
-			    <ul class="errorlist">
-			        <li>{{ error_message }}</li>
-			    </ul>
-		    {% endif %}
-		</div>
-		    <div class="row contact_row" >
-		        <h2 class="cart_info_label">Контактная информация</h2>
-		        <div class="contact-form">
+		<h2 class="cart_info_label">Контактная информация</h2>
+		<div class="row contact_row" >
+			<div class="contact-form">
 		            <form action="." method="post">
 		                {% csrf_token %}
 		                <div class="row">
@@ -96,13 +102,13 @@
 		                            {{ form_checkout.name.label }}:
 		                        </label>
 		                    </div>
-		                    <div class="col-md-5{% if user.is_authenticated %} id_auth {% endif %}">
+		                    <div class="col-md-6{% if user.is_authenticated %} id_auth {% endif %}">
 		                        {{ form_checkout.name }}
 		                        <span class="help-block">
 		                            {{ form_checkout.name.help_text }}
 		                        </span>
 		                    </div>
-		                    <div class="col-md-3 errors_text" id = '{{ form_checkout.name.name  }}_error'>
+		                    <div class="col-md-2 errors_text" id = '{{ form_checkout.name.name  }}_error'>
 			                    {{ form_checkout.name.errors }}
 		                    </div>
 		                </div>
@@ -112,13 +118,13 @@
 		                            {{ form_checkout.phone.label }}:
 		                        </label>
 		                    </div>
-		                    <div class="col-md-5 {% if user.is_authenticated %} id_auth {% endif %}">
+		                    <div class="col-md-6 {% if user.is_authenticated %} id_auth {% endif %}">
 		                        {{ form_checkout.phone }}
 		                        <span class="help-block">
 		                            {{ form_checkout.phone.help_text }}
 		                        </span>
 		                    </div>
-		                    <div class="col-md-3 errors_text" id = '{{ form_checkout.phone.name  }}_error'>
+		                    <div class="col-md-2 errors_text" id = '{{ form_checkout.phone.name  }}_error'>
 			                    {{ form_checkout.phone.errors }}
 		                    </div>
 		                </div>
@@ -127,38 +133,98 @@
 			                        <label class="name_label">
 			                            {{ form_checkout.email.label }}:
 			                        </label>
-			                    </div>
-			                <div class="col-md-5 {% if user.is_authenticated %} id_auth {% endif %}">
+			                </div>
+			                <div class="col-md-6 {% if user.is_authenticated %} id_auth {% endif %}">
 			                        {{ form_checkout.email }}
 			                        <span class="help-block">
 			                        {{ form_checkout.email.help_text }}
 			                        </span>
 			                    </div>
-			                <div class="col-md-3 errors_text" id = '{{ form_checkout.email.name  }}_error'>
+			                <div class="col-md-2 errors_text" id = '{{ form_checkout.email.name  }}_error'>
 				                {{ form_checkout.email.errors }}
 			                </div>
 			            </div>
-
+					<p><em>*Администрация магазина гарантирует,что собранная на сайте личная информация не будет передана третьим лицам.</em></p>
 		        </div>
-		    </div>
-		<h2 class="cart_info_label">Информации о заказе</h2>
-		<div class="row info_row">
-			<p>Сделайте заявку на нашем сайте в любое время суток, заполнив простую форму заказа,
-				после чего с Вами свяжутся наши операторы для подтверждения заявки и выяснения Ваших пожеланий.
-				Также заказы принимаются в магазине <a href="/about/">"Вкусный праздник"</a> </p>
-			<p><strong>Срок выполнения заказа:</strong> пять - шесть дней с момента внесения оплаты.
-			    Для массовых тортов и пирижных возможен самовывоз в течение 24 часов.
-			    Точные сроки выполнения заказа согласовывайте с нашими менеджерами.
-			</p>
-		    <div class="form_order">
-		        {% if cart_items %}
-			            <input type="hidden" name="submit" value="Checkout" />
-			            <button type="submit" value="Checkout" class="btn pull-right button-order">
-			            Разместить заказ <i class="glyphicon glyphicon-tag"></i>
-			            </button>
-			        </form>
-		        {% endif %}
-		    </div>
 		</div>
+		<h2 class="cart_info_label">Информации о доставке</h2>
+		<div class="row contact_row" >
+
+			<div class="row info_row">
+			<p>Выберите удобный для Вас способ доставки: </p>
+			<div class="col-md-6">
+				{% for r in form_checkout.shipping %}
+					<div>
+						{{ r }}
+					</div>
+				{% endfor%}
+			</div>
+			<div class="col-md-6">
+			</div>
+		</div>
+		<div id="address_info" style="padding-top: 10px">
+			<div class="col-md-4">
+				<label class="name_label">
+			        {{ form_checkout.address.label }}:
+			     </label>
+			</div>
+			<div class="col-md-8">
+				{{ form_checkout.address  }}
+			</div>
+			<script type="text/javascript" src="{% static "bootstrap/js/store_js/address.js" %}"></script>
+		</div>
+			<p style="padding-top: 10px"> <strong>Внимание!</strong>
+				Доставка производится только для <strong>заказных</strong> тортов, в пределах города Воронежа в выбранное Вами время.
+			<br> Самовывоз осуществляется по <a href="/about/">адресу</a>: г.Воронеж ул.Ломоносова 114/8, ежедневно c 8-00 до 21-00.</p>
+		</div>
+		{% comment %}<h2 class="cart_info_label">Информации о заказе</h2>
+		<div class="row contact_row" >
+			<div class="row info_row">
+				<p>Сделайте заявку на нашем сайте в любое время суток, заполнив простую форму заказа,
+					после чего с Вами свяжутся наши операторы для подтверждения заявки и выяснения Ваших пожеланий.
+					Также заказы принимаются в магазине <a href="/about/">"Вкусный праздник"</a> </p>
+				<p><strong>Срок выполнения заказа:</strong> пять - шесть дней с момента внесения оплаты.
+				    Для массовых тортов и пирижных возможен самовывоз в течение 24 часов.
+				    Точные сроки выполнения заказа согласовывайте с нашими менеджерами.
+				</p>
+
+			</div>
+		</div>{% endcomment %}
+		<h2 class="cart_info_label">Информации об оплате</h2>
+		<div class="row contact_row" >
+			<p><strong>Массовые торты и пирожные</strong><br>
+				Массовые торты и пирожные Вы можете оплатить
+				(в наличной или безналичной форме) непосредственно в магазине "Вкусный праздник", предоплаты в этом случае не требуется.
+			</p>
+			<p><strong>Заказные торты</strong><br>
+				Оплатить заказной торт можно как полной(100%) ,так и частичной(30%) предоплатой
+				(в наличной или безналичной форме), оставшаяся часть денег оплачивается при получении изделия.
+				Предоплата берется в качестве гарантии заказа товара.
+				Обратите внимание , что при отказе от заказа менее, чем за два дня до срока исполнения заказа, предоплата возврату не подлежит.
+			</p>
+			<div class="row info_row">
+					<p>Выберите удобный для Вас способ предоплаты: </p>
+					<div class="col-md-8">
+						{% for r in form_checkout.billing %}
+							<div>
+								{{ r }}
+							</div>
+						{% endfor%}
+					</div>
+			</div>
+			<p>*Вы можете расплатиться использую <a href="#robokassa_modal" role="button" data-toggle="modal"> более 40</a> видов оплаты через Робокассу
+			</p>
+		</div>
+		<div class="form_order">
+			        {% if cart_items %}
+
+				            <input type="hidden" name="submit" value="Checkout" />
+				            <button id="send_checkout_button" type="submit" value="Checkout" class="btn pull-right button-order">
+				            Разместить заказ <i class="glyphicon glyphicon-tag"></i>
+				            </button>
+				        </form>
+			        {% endif %}
+			    </div>
 	</div>
+	{% include "tags/robokassa.html" %}
 {% endblock %}

@@ -5,12 +5,15 @@
 {% block css %}
 	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/accounts.css">
 {% endblock %}
+{% block other_scripts %}
+	<script src="{{ STATIC_URL }}bootstrap/js/other_libs/jquery.lazyload.min.js"></script>
+{% endblock %}
 {% block site_wrapper %}
 	<div id="main">
 	    <!-- Navigation -->
 	    <div id="navigation" class="">
 	        <!-- Main menu-->
-	        <nav class="navbar navbar-inverse" role="navigation">
+	        <nav class="navbar navbar-inverse navbar" role="navigation">
 	            <!-- Brand-->
 	            <div class="col-md-3">
 	                <div class="navbar-header" id="header_main" >
@@ -19,16 +22,36 @@
 	            </div>
 	            <!-- Navigation-->
 	            <div class="col-md-6">
-		            <div class="row" style="text-align: center">
+		            <div class="row" style="text-align: center; font-size: 16px; color: #e8cda2; padding-top: 9px">
 			            {% if user.is_authenticated %}
-						<p style="color: #fbe1af;">Добро пожаловать, {{ user_name }}!
+						<p style="">
+							{% if provider == "vk-oauth" %}
+								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+							                                     class="img-social">
+							{% elif provider == "facebook"%}
+								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/fb.png" %}"
+							                                     class="img-social">
+							{% elif provider == "odnoklassniki"%}
+								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/ok.png" %}"
+							                                     class="img-social">
+							{% elif provider == "vk-oauth"%}
+								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+							                                     class="img-social">
+							{% elif provider == "vk-oauth"%}
+								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+							                                     class="img-social">
+							{% endif %}
+							Добро пожаловать, {{ user_name }}!<span> | </span>
 
-							<a href="{% url 'django.contrib.auth.views.logout' %}?next={{request.path|urlencode}}">Выйти</a>
+							<a style=" color: #e2ac79;" href="{% url 'django.contrib.auth.views.logout' %}?next={{request.path|urlencode}}">Выйти</a>
 						</p>
 
 						{% else %}
-							 <a href="#" class="get-reg-modal" >Зарегистрироваться</a>
-							 <a href="#" class="get-login-modal">Войти</a>
+				            <div class="reg_div" style="">
+				                <a href="#" class="get-reg-modal" style="">Зарегистрироваться</a><span > | </span>
+							    <a href="#" class="get-login-modal">Войти</a>
+				            </div>
+
 			            {% endif %}
 		            </div>
 	                <div class="row mainmenu" id = "mainmenu">

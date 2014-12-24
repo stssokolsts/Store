@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 from cart import cart
-from models import OrderItem
-from Store import settings
 from django.core import urlresolvers
-import urllib
-import decimal
-
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from Store.settings import FROM_EMAIL
+from models import SHIPPING_CHOICES
 
 def get_checkout_url(request):
     return urlresolvers.reverse('checkout')
@@ -26,8 +26,21 @@ def create_order(request):
     order.user = None
     if request.user.is_authenticated():
         order.user = request.user
-        order.email = order.user.email
+    order.email = request.POST['email']
+    order.phone = request.POST['phone']
+    order.name = request.POST['name']
     order.status = Order.SUBMITTED
+
+    order.shipping = request.POST["shipping"]
+    #print(SHIPPING_CHOICES[0:1])
+    print(SHIPPING_CHOICES[1][0])
+    print(order.shipping)
+    if (order.shipping == SHIPPING_CHOICES[1][0]):
+        print("ok")
+        order.address = request.POST["address"]
+    print(order.address)
+    print(order.shipping)
+    print(order)
     order.save()
 
     if order.pk:
@@ -55,6 +68,7 @@ def create_order(request):
             print(oi)
         # all set, clear the cart
 
+        #send_email(request,order.id)
         cart.empty_cart(request)
 
         # save profile info for future orders
@@ -64,6 +78,22 @@ def create_order(request):
             profile.set(request)
     return order
 
+
+def send_email(request, order_number):
+    postdata = request.POST.copy()
+    name = postdata["name"]
+    to = postdata["email"]
+
+    rend_dic = {}
+    rend_dic.update({'cart_items': cart.get_cart_items(request), 'name': name})
+    print(rend_dic)
+    html = render_to_string("email/send_order.html",rend_dic)
+
+    title = ("Заказ № "+str(order_number))
+
+    msg = EmailMessage(title, html, FROM_EMAIL, [to])
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
 
 def process(request):
     order = create_order(request)

@@ -6,6 +6,8 @@ from checkout import checkout
 from catalog.forms import AddToCart
 from accounts import profile
 from checkout.forms import CheckoutForm
+from django.core.mail import send_mail
+
 import cart
 import json
 
@@ -41,8 +43,13 @@ def show_cart(request, template_name="cart/cart.html"):
     cart_subtotal = cart.cart_subtotal(request)
     return render_to_response(template_name, locals(),context_instance=RequestContext(request))
 
+
 def show_cart_new(request, template_name="cart/cart.html"):
     """страница корзины и отправки заказа"""
+
+    cart_items = cart.get_cart_items(request)
+    c = cart_items
+    print(cart_items)
     request.session.set_test_cookie()
     #заполняем форму если пользователь авторизован
     if request.user.is_authenticated():
@@ -51,60 +58,46 @@ def show_cart_new(request, template_name="cart/cart.html"):
         form_checkout = CheckoutForm(instance=user_profile, email = email )
     else:
         form_checkout = CheckoutForm()
-
     if request.method == 'POST':
-        print("метод пост")
         postdata = request.POST.copy()
-        print(postdata)
         form_q = AddToCart(request, data=postdata)
         if postdata['submit'] == 'Remove':
-            print("удалить")
             if request.is_ajax():
                 #удаление ajax'ом
-                success = cart.remove_from_cart(request, ajax=True)
-                response_dict = {}
-                response_dict.update({'count': cart.get_cart_items(request).count(),
-                                      'cart_subtotal': cart.cart_subtotal(request)})
-                if success==True:
-                    response_dict.update({'success': 'True'})
-                else:
-                     response_dict.update({'success': 'False'})
-                return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                return HttpResponse(json.dumps(cart.remove_from_cart_ajax(request)), content_type='application/javascript')
             #обычное удаление
             cart.remove_from_cart(request)
         if postdata['submit'] == 'Update':
-            print("обновить")
+            if request.is_ajax():
+                return HttpResponse(json.dumps(cart.update_cart_ajax(request)), content_type='application/javascript')
             quantity = postdata['quantity']
             form_q.fields['quantity'].widget.attrs['value'] = quantity
-            print(form_q.errors.as_ul)
             if form_q.is_valid():
-                print("форма обновления валидна")
                 cart.update_cart(request)
             else:
                 print("форма обновления не валидна")
-                error_message = u'Correct the errors below'
+                error_message = u'Введено некоректное значение!'
         #пытаемся отправить заказ
         if postdata['submit'] == 'Checkout':
-            print("отправить")
+            print("ch")
+            if cart.is_empty(request):
+                cart_url = urlresolvers.reverse('show_cart')
+                return HttpResponseRedirect(cart_url)
             form_checkout = CheckoutForm(data=postdata)
+            print(postdata)
             if form_checkout.is_valid():
-                print("форма информации валидна")
                 #отправляем
                 response = checkout.process(request)
                 order_number = response.get('order_number', 0)
                 error_message = response.get('message', '')
                 if order_number:
-                    #задем номер заказа в сессии
-                    print("номер получен")
-                    request.session['order_number'] = order_number
                     receipt_url = urlresolvers.reverse('checkout_receipt')
                     return HttpResponseRedirect(receipt_url)
-            else:
-                print("форма информации не валидна")
-                print (form_checkout.errors.as_ul)
-                error_message = u'Correct the errors below'
-    cart_items = cart.get_cart_items(request)
+    #cart_items = cart.get_cart_items(request)
     page_title = 'Корзина'
     cart_subtotal = cart.cart_subtotal(request)
+    print(form_checkout)
+    from checkout.models import SHIPPING_CHOICES
+    print(SHIPPING_CHOICES[0][1])
     return render_to_response(template_name, locals(),context_instance=RequestContext(request))
 # Create your views here.

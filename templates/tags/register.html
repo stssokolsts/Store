@@ -44,23 +44,26 @@
 	                        </div>
 	                        <div class="social-icon center-block " id="parent">
 	                            <div class="child">
-	                                <img src="{% static "image/social/vk.png" %}" class="img-social">
+		                            <a href="{% url 'socialauth_begin' 'vk-oauth' %}?next={{ request.path }}">
+	                                    <img src="{% static "image/social/vk.png" %}" class="img-social">
+			                        </a>
 	                            </div>
 	                            <div class="child">
-	                                <img src="{% static "image/social/fb.png" %}" class="img-social">
+		                            <a href="{% url 'socialauth_begin' 'facebook' %}?next={{ request.path }}">
+	                                    <img src="{% static "image/social/fb.png" %}" class="img-social">
+			                        </a>
 	                            </div>
+	                            {% comment %}<div class="child">
+		                            <a href="{% url 'socialauth_begin' 'github' %}?next={{ request.path }}">
+	                                    <img src="{% static "image/social/gh.png" %}" class="img-social">
+			                        </a>
+	                            </div>{% endcomment %}
 	                            <div class="child">
-	                                <img src="{% static "image/social/gh.png" %}" class="img-social">
+		                            <a href="{% url 'socialauth_begin' 'odnoklassniki' %}">
+	                                    <img src="{% static "image/social/ok.png" %}" class="img-social">
+			                        </a>
 	                            </div>
-	                            <div class="child">
-	                                <img src="{% static "image/social/ok.png" %}" class="img-social">
-	                            </div>
-	                            <div class="child">
-	                                <img src="{% static "image/social/tw.png" %}" class="img-social">
-	                            </div>
-	                            <div class="child">
-	                                <img src="{% static "image/social/yan.png" %}" class="img-social">
-	                            </div>
+
 	                        </div>
 	                        <div class="modal-footer">
 	                            <input type="hidden" name="next" value="{{ request.path }}" />
@@ -79,11 +82,11 @@
                             </span>
                             <span class="reg_form">
                                 {{ reg_form.name }}
-                            </span>
+                            </span><span class="help-block errors_text"  id = '{{ reg_form.name.name  }}_error'></span>
                             <span class="help-block">
                                 {{ reg_form.name.help_text }}
                             </span>
-	                        <span class="help-block errors_text"  id = '{{ reg_form.name.name  }}_error'></span>
+
                             <span class="reg_label">
 	                            <label class="label_name">
 	                            {{ reg_form.email.label }}:
@@ -93,6 +96,9 @@
                                 {{ reg_form.email }}
                             </span>
                             <span class="help-block errors_text"  id = '{{ reg_form.email.name  }}_error'></span>
+	                        <span class="help-block">
+                                {{ reg_form.email.help_text }}
+                            </span>
                             <span class="reg_label">
 	                            <label class="label_name">
 	                            {{ reg_form.password1.label }}:

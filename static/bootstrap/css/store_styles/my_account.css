@@ -87,3 +87,48 @@ table tr:first-child th:last-child
     font-weight: bolder;
     font-size: 16px;
 }
+
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #E2BE8C;
+    border-left-width: 5px;
+    border-radius: 3px;
+    font-size: 16px;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: #777;
+}
+.bs-callout-default h4 {
+    color: #777;
+}
+
+.bs-callout-primary {
+    border-left-color: #DBA14E;
+}
+.bs-callout-primary h4 {
+    color: #428bca;
+}
+
+.bs-callout-warning {
+    border-left-color: #B8843A;
+}
+.bs-callout-warning h4 {
+    color: #996720;
+}

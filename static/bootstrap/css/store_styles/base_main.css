@@ -113,7 +113,7 @@ body {
 }
 
 #main {
- padding-bottom: 300px;/*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
+ padding-bottom: 200px;/*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
 }
 
 #footer {
@@ -214,6 +214,7 @@ a {
 
 .left_sidebar {
     padding-left: 40px
+
 }
 
 .main_content {
@@ -240,5 +241,28 @@ a {
 }
 	#scrollUp:hover {
 		background: #000;
+        cursor: auto;
+	}
+
+#goCart {
+	top: 20px;
+	right: 70px;
+	background: #E2E021;
+	color: #000000;
+	font-size: 17px;
+	font-family: sans-serif;
+	text-decoration: none;
+	opacity: .9;
+	padding: 14px 24px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-transition: background 200ms linear;
+	-moz-transition: background 200ms linear;
+	transition: background 200ms linear;
+}
+
+#goCart:hover {
+		background: #ccca1c;
         cursor: auto;
 	}

@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from  django.contrib.auth.views import login
+from accounts import profile
 
 from checkout.models import Order, OrderItem
 from accounts.forms import UserProfileForm, RegistrationForm
@@ -50,6 +51,7 @@ def register(request, template_name="registration/register.html"):
 @csrf_protect
 def register_ajax(request):
     """ ajax - регистрация пользователей """
+    print("here1")
     response_dict = {}  # ответ клиенту
     if request.method == 'POST':
         postdata = request.POST.copy()
@@ -82,7 +84,7 @@ def my_account(request, template_name="registration/my_account.html"):
         for order in orders:
             orders_item.update({order : OrderItem.objects.filter(order=order)})
         print(orders_item)
-        userprofile = UserProfile.objects.get(id = request.user.id)
+        userprofile = profile.retrieve(request)
         name = userprofile.name
         #u = get_object_or_404(UserProfile, id = userprofile.id)
         #products = u.favorites_set.all()
@@ -127,16 +129,11 @@ def order_info(request, template_name="registration/order_info.html"):
 @csrf_protect
 def login(request):
     """ ajax - авторизация пользователей """
-    #next_page = request.POST['next_page']
-    #if next_page is not None:
-        #next_page = resolve_url(next_page)
     if request.method == "POST":
         form = MyAuthenticationForm(request, data=request.POST)
         response_dict = {}
         if form.is_valid():
             auth.login(request, form.get_user())  # авторизация
-            #if next_page is not None:
-                 #response_dict.update({'response':  HttpResponse(next_page)})
             response_dict.update({'success': 'True'})
         else:
             data = []

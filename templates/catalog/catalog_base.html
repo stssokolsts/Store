@@ -19,7 +19,7 @@
          </div>
          <div class="sidebar col-md-3 left_sidebar">
             <div class="row search">
-               <h3>Поиск по каталогу </h3>
+               <h3>Поиск по каталогу</h3>
 				{% search_box request %}
             </div>
             <div class="row" >
@@ -28,21 +28,19 @@
                   {% category_list request.path %}
                </div>
             </div>
-            <hr>
+
             <div class="row">
-               <h3>BEST SELLERS</h3>
-               <div class="col-md-6">
-                  <a href="#"> <img src="{% static "image/products/thumbnails/11q.jpg" %}" ></a>
-               </div>
-               <div class="col-md-6">
-                  <a href="#"><img src="{% static "image/products/thumbnails/10q.jpg"  %}"></a>
-               </div>
+               {% pop_products_list %}
             </div>
-            [Best seller here]
+	         <div class="row">
+               {% last_products_list request%}
+            </div>
          </div>
          <!-- Content Column -->
       </div>
       <!-- /.row -->
    </div>
 </div>
+	{% comment %}<a id="goCart" href="#top" title="Наверх" style="position: fixed; z-index: 2147483647; display: block;">Перейти в корзину
+	<i class="glyphicon glyphicon-shopping-cart icon-white"></i></a>{% endcomment %}
 {% endblock %}

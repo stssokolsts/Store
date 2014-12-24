@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-6 add_cart">
         {% csrf_token %}
-        <button type="submit" id="fly" class="btn pull-right" >
+        <button type="submit" id="add_button" class="btn pull-right" >
         В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i>
         </button>
         {{ form_cart.product_slug }}

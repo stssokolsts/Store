@@ -1,5 +1,6 @@
 from models import UserProfile
 from forms import UserProfileForm
+from django.shortcuts import HttpResponseRedirect
 
 
 def retrieve(request):
@@ -19,3 +20,12 @@ def set(request):
     profile = retrieve(request)
     profile_form = UserProfileForm(request.POST, instance=profile)
     profile_form.save()
+
+
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
+
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile

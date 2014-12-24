@@ -8,24 +8,28 @@ from models import UserProfile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user','favorites')
+        exclude = ('user', 'favorites')
 
 
 class RegistrationForm(UserCreationForm):
-    """ Расширенная фФорма регистрации пользователей """
+    """ Расширенная форма регистрации пользователей """
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
 
-    password1 = forms.RegexField(label="Пароль", regex=r'^(?=.*\W+).*$',
-                                 help_text= 'Пароль должен быть длинной не менее 6 символов и содержать хотя бы один не алфавитно-цифровой символ.',
+    password1 = forms.CharField(label="Пароль",
+                                 help_text= 'Пароль должен быть длинной не менее 6 символов',
                                  widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': '*******'}), min_length=6)
-    password2 = forms.RegexField(label="Повторите пароль", regex=r'^(?=.*\W+).*$',
+    password2 = forms.CharField(label="Повторите пароль",
                                  widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': '*******'}), min_length=6)
-    email = forms.EmailField(max_length="75", widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'useremail@example.com'}))
+    email = forms.EmailField(label=("E-mail"),max_length="75",
+                             widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'useremail@example.com'}),
+                             help_text=("Ваш e-mail будет использоваться"
+                                        " для подтверждения отправки заказа и уведомления об изменении его статуса"),)
 
     name = forms.CharField(label=("Имя пользователя"), max_length=150,
-        widget= forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Иванов Иван Иванович'}),
-        help_text=("По этому имени мы будем обращаться к Вам для уточнения деталей"),
+        widget= forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Иванов Иван'}),
+        help_text=("Пожалуйста, введите настоящее имя и фамилию. "
+                   "По этому имени мы будем обращаться к Вам для уточнения деталей заказов"),
         )
 
     class Meta:
@@ -35,7 +39,8 @@ class RegistrationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
         try:
-            raise forms.ValidationError("This email address already exists. Did you forget your password?")
+            user = User.objects.get(email=email)
+            raise forms.ValidationError("На этот e-mail уже зарегистрирован аккаунт")
         except User.DoesNotExist:
             return email
 
@@ -49,7 +54,7 @@ class RegistrationForm(UserCreationForm):
             user.save()
         user_profile = UserProfile()
         user_profile.name = self.cleaned_data["name"]
-        user_profile.user.id = user.id
+        user_profile.user = user
         user_profile.name = self.cleaned_data["name"]
         user_profile.save()
         return user

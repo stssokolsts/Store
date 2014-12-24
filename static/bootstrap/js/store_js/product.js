@@ -3,6 +3,8 @@
  */
 function add_cart() {
     //удаляем предыдущие ошибки
+    $('#add_button').html(' Отправка... ')
+        .attr('disabled',true);
     $('div.error_item_form').remove();
     $('.has-error').removeClass('has-error');
     //заполняем описание
@@ -23,6 +25,8 @@ function add_cart() {
         success: function(json) {
             if (json.success == 'False')
             {
+                $('#add_button').html(' В корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i>')
+                    .attr('disabled',false);
                 for (var i = 0; i < json.errors.length; i++)
                 {
                     $('#id_'+json.errors[i].key).parent().addClass('has-error');
@@ -32,7 +36,7 @@ function add_cart() {
             }
             else if (json.success == 'True')
             {
-                $('#fly').css({'background-color':'#4CAE4C','width':'117'})
+                $('#add_button').css({'background-color':'#4CAE4C','width':'117'})
                     .html(' Добавлено! <i class="glyphicon glyphicon-ok icon-white"></i>').attr('disabled',true);
                 $('#count_products').text(json.count);
                 $('#go_cart').show();
@@ -46,7 +50,7 @@ function add_cart() {
 }
 
 function prepareDocument() {
-    $("#fly").click(add_cart);
+    $("#add_button").click(add_cart);
 }
 
 $(document).ready(prepareDocument);

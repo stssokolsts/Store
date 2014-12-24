@@ -1,71 +1,102 @@
 {% extends 'catalog/catalog_base.html' %}
 {% block css %}
-	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/product_thumbnail.css">
-	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/my_account.css"
-      xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/product_thumbnail.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/my_account.css"
+    xmlns="http://www.w3.org/1999/html">
 {% endblock %}
 {% block main_content %}
-<h1>Моя страница</h1>
-<strong>Добро пожаловать, {% if user.is_authenticated %}{{ name|capfirst }}!{% else %}гость!{% endif %}</strong>
-<br /><br />
+	<h1>Моя страница</h1>
+	<strong>Добро пожаловать, {% if user.is_authenticated %}{{ name|capfirst }}!{% else %}гость!{% endif %}</strong>
 	{% if user.is_authenticated %}
-<div class="account_page">
-   <fieldset class="my_account">
-      <legend>История заказов</legend>
+		<div class="account_page">
+			<br><br>
+		    <fieldset class="my_account">
+		        <legend>История заказов</legend>
+		        {% if orders_items %}
+			        <div class="panel-group" id="accordion">
+			            {% for order, items in orders_item.items %}
+				            <div class="panel panel-default">
+				                <div class="panel-heading">
+				                    <h4 class="panel-title">
+				                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ order.id }}" style="font-size: 17px">
+				                        Заказ № {{ order.id }}
+				                        </a>
+				                    </h4>
+				                </div>
+				                <div id="collapse{{ order.id }}" class="panel-collapse collapse">
+				                    <div class="panel-body">
+				                        <p ><span class="order_info_label">Заказ от:</span> {{ order.date }}</p>
+				                        <p><span class="order_info_label">На имя: </span> {{ user_name }}</p>
+				                        <p><span class="order_info_label">Сумма:</span> {{ order.total }}р</p>
+				                        <table class="table table-striped" cellspacing='0'>
+				                            <tr>
+				                                <th>Название</th>
+				                                <th>Цена</th>
+				                                <th style="max-width: 60px">Вес</th>
+				                                <th style="max-width: 70px">Стоимость</th>
+				                            </tr>
+				                            {% comment %}{% for item in order %}{% endcomment %}
+				                            {% for item in items %}
+					                            <tr>
+					                                <td>{{ item.name }}</td>
+					                                <td id="price_{{ item.name }}">{{ item.price }}</td>
+					                                <td>{{ item.weight }} кг</td>
+					                                <td id="total_">{{ item.total }}</td>
+					                            </tr>
+				                            {% endfor %}
+				                            {% comment %}{% endfor %}{% endcomment %}
+				                        </table>
+				                    </div>
+				                </div>
+				            </div>
+			            {% endfor %}
+			        {% else %}
+			            <p>У Вас пока нету отправленных заказов. Самое время сделать <strong>
+				            <a href="{%  url 'catalog'%}" style="color: #0c1d2c">первый?</a></strong></p>
+		            {% endif %}
 
-      <div class="panel-group" id="accordion">
-         {% for order, items in orders_item.items %}
-         <div class="panel panel-default">
-            <div class="panel-heading">
-               <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ order.id }}" style="font-size: 17px">
-                  Заказ № {{ order.id }}
-                  </a>
-               </h4>
-            </div>
-            <div id="collapse{{ order.id }}" class="panel-collapse collapse">
-               <div class="panel-body">
-               <p ><span class="order_info_label">Заказ от:</span> {{ order.date }}</p>
-               <p><span class="order_info_label">На имя: </span> {{ user_name }}</p>
-               <p><span class="order_info_label">Сумма:</span> {{ order.total }}р</p>
-                  <table class="table table-striped" cellspacing='0'>
-                     <tr>
-                        <th>Название</th>
-                        <th>Цена</th>
-                        <th style="max-width: 60px">Вес</th>
-                        <th style="max-width: 70px">Стоимость</th>
-                     </tr>
-                     {% comment %}{% for item in order %}{% endcomment %}
-	                  {% for item in items %}
-                     <tr>
-                        <td>{{ item.name }}</td>
-                        <td id="price_{{ item.name }}">{{ item.price }}</td>
-                        <td>{{ item.weight }} кг</td>
-                        <td id="total_">{{ item.total }}</td>
-                     </tr>
-		                  {% endfor %}
-                     {% comment %}{% endfor %}{% endcomment %}
-                  </table>
-               </div>
-            </div>
-         </div>
-         {% endfor %}
-      </div>
-      {% comment %}У Вас нет последних заказов.
-      {% endfor %}{% endcomment %}
-   </fieldset>
-   <br />
-   <fieldset class="my_account">
-      <legend>Настройки аккаунта</legend>
-      <ul>
-         <li><a href="{% url 'django.contrib.auth.views.password_change' %}">Изменить пароль</a></li>
-         <li><a href="{% url 'order_info' %}">Редактировать контактную информацию</a></li>
-      </ul>
-   </fieldset>
-   <fieldset class="my_account">
-      <legend>Избраннное</legend>
-		{% include "tags/product_thumbnail.html" %}
-   </fieldset>
-</div>
+		        {% comment %}У Вас нет последних заказов.
+		        {% endfor %}{% endcomment %}
+		    </fieldset>
+		    <br />
+		    <fieldset class="my_account">
+		        <legend>Настройки аккаунта</legend>
+		        <ul>
+		            <li><a href="{% url 'django.contrib.auth.views.password_change' %}">Изменить пароль</a></li>
+		            <li><a href="{% url 'order_info' %}">Редактировать контактную информацию</a></li>
+		        </ul>
+		    </fieldset>
+		    <fieldset class="my_account">
+		        <legend>Избраннное</legend>
+		        {% include "tags/product_thumbnail.html" %}
+		    </fieldset>
+		</div>
+
+	{% else %}
+		<div class="account_page">
+			<hr style="margin-top: 10px; border-top-color: #1F0F06">
+			<p><h4>Это страница доступна только для авторизованных пользователей.</h4>
+			<a href=""> Авторизуйтесь</a> или <a href="#"> зарегистрируйтесь</a></p>
+{% comment %}			<fieldset class="my_account">
+			        <legend >Зачем регистрироваться?</legend>
+			</fieldset>{% endcomment %}
+			<h3>Зачем регистрироваться?</h3>
+	<div class="bs-callout bs-callout-warning" id="callout-helper-context-color-specificity">
+    <h4><span style="color: #ffff00" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>Избранное</h4>
+    <p>Добавляйте понравившиеся изделия в избранное - ваши любимые торты будут всегда под рукой.</p>
+  </div>
+			<div class="bs-callout bs-callout-warning" id="callout-helper-context-color-specificity">
+    <h4><span style="" class="glyphicon glyphicon-edit" aria-hidden="true"></span> История заказов</h4>
+    <p>Все ваши заказы будут доступны на этой странце</p>
+  </div>
+
+						<div class="bs-callout bs-callout-warning" id="callout-helper-context-color-specificity">
+    <h4>Скидка постоянным покупателям</h4>
+    <p>Чем больше заказов - тем больше скидка!</p>
+  </div>
+
+			<p style="font-size: 16px">Регистрация является совершенно бесплатной и займет у Вас не более 2 минут. Авторизация через социальные сети и вовсе пройдет мгновенно</p>
+		</div>
 	{% endif %}
+
 {% endblock %}
