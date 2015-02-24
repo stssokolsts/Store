@@ -1,6 +1,7 @@
 <div class="menuextras">
-    <ul>
-        <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="{% url 'show_cart' %}"><b><span id="count_products"> {{ cart_item_count }}</span> товара в корзине</b></a></li>
-    </ul>
+	<div class="shopping-cart-items">
+		<a href="{% url 'show_cart' %}"><i class="glyphicon glyphicon-shopping-cart icon-white"></i>
+		<b><span id="count_products"> {{ cart_item_count }}</span> товара в корзине</b></a>
+	</div>
 </div>
 

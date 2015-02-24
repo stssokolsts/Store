@@ -1,4 +1,3 @@
-
 html {
     position:relative;
     min-height:100%;
@@ -8,261 +7,330 @@ html {
 body {
     background-color: #E2BE8C;
     height: 100%;
-    min-width:900px !important;
     color: #1F0F06 ;
     overflow-y: scroll;
-}
-.body container.in_right {
-    padding-right: 1px;
+    min-width: 320px;
 }
 
-.container {
-    width: 970px !important;
-}
 
+#main {
+    padding-bottom: 200px;, /*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
+}
 /*--------------------------------------------------------------------------
-+	Main Menu Style
++	Шапка сайта
 --------------------------------------------------------------------------*/
-.navbar-inverse {
-  background-color: #1F0F06;
-  border-color: #D39A5A;
-  height: 150px;
+#navigation .navbar{
+    background-color: #1F0F06;
+    border-color: #D39A5A;
+    //height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #D39A5A;
-}
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-    color: #ffff99;
-    background-color: transparent;
+#navigation .navbar-collapse {
+    height: auto;
 }
 
-.navbar-inverse .navbar-brand {
+/*----------Бренд-----------*/
+#navigation  .navbar .navbar-brand {
     color: #cea367;
     font-size: 25px;
     padding-top: 50px;
+    margin-left: 20px;
 }
+/*--------------------------*/
 
-.navbar-inverse .mainmenu {
-    font-size: 20px;
+
+/*---------Главное меню-----------*/
+#navigation  .navbar .mainmenu {
+    font-size: 23px;
     padding-top: 50px;
 }
+/*--------------------------*/
 
-.navbar-brand{
-    padding-top: 10px;
-}
 
-.mainmenu_contact p{
-   text-align: right;
+/*-------Контакты-----------*/
+#navigation .mainmenu_contact p{
+    text-align: right;
     font-size: 20px;
     color: #D39A5A;
-    padding-right: 20px;
     padding-top: 10px;
 }
 
-#header_main{
-    padding-left: 50px;
-    padding-top: 7px
+#navigation .mainmenu_contact .address_contact {
+    font-size: 20px;
 }
+/*--------------------------*/
 
-/*--------------------------------------------------------------------------
-+	Extras Menu (Cart, Language, Login) Style
---------------------------------------------------------------------------*/
-.menuextras {
+
+/*----------Добавить в корзину----------------*/
+#navigation .menuextras {
   font-size: 18px;
-  padding-top: 26px;
+  padding-top: 20px;
   text-align: right"
 
 }
-.menuextras ul {
+#navigation .menuextras {
   margin: 0;
   list-style-type: none;
   float: right;
   color: #D39A5A;
 }
-.menuextras li{
+ #navigation.menuextras .shopping-cart-items{
   float: left;
   padding: 0 8px;
 
 }
-.menuextras li a{
+#navigation .menuextras .shopping-cart-items a{
   color: #D39A5A;
 }
 
-.menuextras> li > a:focus{
+#navigation .menuextras> .shopping-cart-items > a:hover,
+#navigation .menuextras> .shopping-cart-items > a:focus{
     color: #ffff99;
+    text-decoration: none;
 }
-
-/*--------------------------------------------------------------------------
-+	Search and nav
---------------------------------------------------------------------------*/
-
-.top_navigation a{
-    color: #1F0F06 ;
-    font-size: 18px;
-}
+/*---------------------------------------------*/
 
 
 /*--------------------------------------------------------------------------
 +	Footer
 --------------------------------------------------------------------------*/
-
 .footer {
     background-color: #1F0F06;
+    height: 125px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #f3f3f3;
 }
 
-#main {
- padding-bottom: 200px;/*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
-}
-
-#footer {
- height: 90px;
- position: absolute;
- bottom: 0;
- width: 100%;
- color: #f3f3f3;
-
-}
-
-/*--------------------------------------------------------------------------
-+	Sidebar
---------------------------------------------------------------------------*/
-
-.row .list-group-item {
-
-    border-color: #5D2C13;
-    color: #1F0F06;
-}
-
-a.list-group-item:hover,
-a.list-group-item:focus{
-
-}
-
-.list-group h3 {
-    border: 1px #1f0f06 solid;
-    -webkit-border-radius: 20px;
-    background-color: #dcac5f;
-    height: 40px;
-    padding-left: 15px;
-    padding-top: 7px
-}
-
-.menu-item {
-    font-size: 19px;
-    color: #1F0F06;
-}
-.nav > li > a:hover,
-.nav > li > a:focus {
-  text-decoration: none;
-  background-color: transparent;
-  color: #bc742e;
-}
-
-
-.nav > li.menu-item_active > a:hover,
-.nav > li.menu-item_active > a:focus {
-  text-decoration: none;
-  background-color: transparent;
-  color: #1F0F06;
-}
-
-.page-header{
-    border-bottom: 1px solid #1F0F06 ;
-    margin-bottom: 5px;
-}
-
-.portfolio-item a{
-    color: #1F0F06 ;
-}
-
-
-
-.blueimp-gallery > .description {
-  position: absolute;
-  top: 30px;
-  left: 15px;
-  color: #fff;
-  display: none;
-}
-.blueimp-gallery-controls > .description {
-  display: block;
-}
-
-.container_r {
-    padding-right: 40px;
-    padding-left: 30px;
-}
-
-.container_r {
-    padding-right: 40px;
-    padding-left: 30px;
-}
-
-a {
+.footer a{
     color: #D39A5A;
 }
 
-.container_r .category_names {
-    font-size: 30px
+
+/*-----------Изображения с левой и правой части---------------*/
+.footer .image_footer {
+    max-width: 120px;
+    margin-top: 15px;
 }
 
-.search {
-    font-size: 25px
+/*----------Навигация--------------*/
+.footer .footer_center .footer_navigation {
+    font-size: 20px;
 }
 
-.left_sidebar {
-    padding-left: 40px
-
+/*----------Контактная информация--------------*/
+.footer .footer_center .footer_contact_info {
+    color: #D39A5A;
+    text-align: center;
 }
 
-.main_content {
-    padding-right: 30px
+.footer .footer_center .footer_contact_info .address_info{
+    color: #fbe1af;
+}
+
+.footer .footer_center .footer_contact_info .info {
+    padding: 0;
+}
+
+.footer .footer_center .footer_copywriter {
+    text-align: center;
 }
 
 
-#scrollUp {
-	bottom: 20px;
-	right: 70px;
-	background: #6E4A29;
-	color: #fff;
-	font-size: 15px;
-	font-family: sans-serif;
-	text-decoration: none;
-	opacity: .9;
-	padding: 14px 24px;
-	-webkit-border-radius: 16px;
-	-moz-border-radius: 16px;
-	border-radius: 16px;
-	-webkit-transition: background 200ms linear;
-	-moz-transition: background 200ms linear;
-	transition: background 200ms linear;
-}
-	#scrollUp:hover {
-		background: #000;
-        cursor: auto;
-	}
+/*--------------------------------------------------------------------------*/
+/* Small devices (tablets, 768px and up) */
+/* Medium devices (desktops, 992px and up) */
+/* Large devices (large desktops, 1200px and up) */
 
-#goCart {
-	top: 20px;
-	right: 70px;
-	background: #E2E021;
-	color: #000000;
-	font-size: 17px;
-	font-family: sans-serif;
-	text-decoration: none;
-	opacity: .9;
-	padding: 14px 24px;
-	-webkit-border-radius: 16px;
-	-moz-border-radius: 16px;
-	border-radius: 16px;
-	-webkit-transition: background 200ms linear;
-	-moz-transition: background 200ms linear;
-	transition: background 200ms linear;
+
+
+
+/*-----Для телефонов----------*/
+@media (max-width: 767px) {
+    /*размеры шапки*/
+    #navigation .navbar {
+        margin: 0;
+        padding: 0;
+    }
+    /*Кпопка меню*/
+    #navigation .navbar-header .menu_button {
+        background-color: #ECD592;
+    }
+    #navigation .navbar-header .icon-bar {
+        background-color: #000000;
+    }
+
+    /*------------------навигационное меню--------------------*/
+    #navigation .mainmenu {
+        padding-top: 0 !important;
+    }
+    #navigation #menu_collapse {
+        background-color: #1F0F06;
+    }
+    #navigation_list ul {
+        text-align:left !important;
+        float: none !important;
+        left:0  !important  ;
+        border-top: 1px solid #D39A5A;
+    }
+    #navigation_list .navbar-nav >li {
+        float: none !important;
+        right:0 !important;
+        padding: 30px 0;
+    }
+    #navigation_list .navbar-nav > li > a {
+        color: #D39A5A;
+    }
+    #navigation_list .navbar-nav > li > a:hover,
+    #navigation_list .navbar-nav > li > a:focus {
+        color: #ffff99;
+        background-color: transparent;
+    }
+    /*------------------------------------------------*/
 }
 
-#goCart:hover {
-		background: #ccca1c;
-        cursor: auto;
-	}
+/*-------320x480-----------------*/
+@media (max-width: 767px) {
+
+    /*----------------Бренд--------------------------*/
+    #navigation .navbar .navbar-brand {
+        padding-top: 21px;
+        font-size: 21px;
+    }
+
+    #navigation .navbar .navbar-brand{
+        margin-left: 5px;
+    }
+    /*-------------------Кпопка меню-------------*/
+    #navigation .navbar-header .menu_button {
+        margin-top: 15px;
+        margin-right: 15px;
+    }
+    /*----------------навигационное меню-----------*/
+    #navigation .navbar .mainmenu {
+        font-size: 19px;
+    }
+    #navigation_list .navbar-nav > li {
+        padding: 6px 0;
+    }
+    #navigation_list ul {
+        padding: 10px 20px 0  20px;
+    }
+    #navigation_list .dropdown .dropdown-menu li{
+        font-size: 17px !important;
+        padding: 7px 0 !important;
+    }
+
+    /*----------------footer------------------*/
+    .footer {
+        height: 80px;
+    }
+}
+
+/*--------Для планшетов------------*/
+@media (min-width: 768px) and (max-width: 991px) {
+    /*Отступы шапки*/
+    #navigation .navbar {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /*размеры шапки*/
+    #navigation .navbar {
+        height: 130px;
+    }
+    /*размеры бренда*/
+    #navigation .navbar .brand-image {
+        min-height: 120px;
+        max-height: 125px;
+    }
+
+    /*убираем отступ у корзины*/
+    #navigation .menuextras {
+        font-size: 18px;
+        padding-top: 27px;
+    }
+
+    /*меняем шрифт контактной информации*/
+    #navigation .mainmenu_contact p {
+        font-size: 15px;
+    }
+    #navigation .mainmenu_contact .address_contact {
+        font-size: 17px;
+    }
+
+    /*меняем шрифт меню*/
+    #navigation .navbar .mainmenu {
+        font-size: 18px;
+    }
+
+    /*меняем шрифт корзины*/
+    #navigation .menuextras {
+        font-size: 16px;
+    }
+
+    /*Шрифт в подвале*/
+    .footer_contact_info .info p {
+        font-size: 13px;
+    }
+    .footer_copywriter .address_info {
+        font-size: 13px;
+    }
+    .footer .footer_center .footer_navigation {
+        font-size: 18px;
+    }
+
+    #navigation .navbar-header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+     #navigation .nav-list {
+         padding: 0;
+     }
+
+     #navigation #menu_collapse {
+         padding: 0;
+     }
+
+     #navigation .navbar {
+        padding-left: 5px;
+        padding-right: 5px;
+}
+     #navigation .mainmenu_contact p {
+         margin-bottom: 0;
+     }
+    #navigation .nav-info {
+        padding: 0;
+    }
+    #navigation .nav-brand {
+        padding: 3px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1130px) {
+    /*смещаем меню*/
+    #navigation .navbar .mainmenu {
+        padding-top: 70px;
+    }
+    /*меняем шрифт меню*/
+    #navigation .navbar .mainmenu {
+        font-size: 20px;
+    }
+    /*Делаем оступ бренду*/
+    #navigation .navbar .brand-image {
+        padding-top: 14px;
+    }
+    /*Шрифт в подвале*/
+    .footer_contact_info .info p {
+        font-size: 13px;
+    }
+    .footer_copywriter .address_info {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1200px) {  }

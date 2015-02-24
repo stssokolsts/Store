@@ -14,5 +14,5 @@ def currency(value):
 @register.filter(name='currency')
 def currency1(value):
     value = '{:20,.1f}'.format(value)
-    s = str(value)
-    return (s+ (" p"))
+    s = str((value))
+    return (s.split('.')[0]+ (" p"))

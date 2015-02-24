@@ -1,10 +1,33 @@
+
+
+.container_r {
+    padding-right: 40px;
+    padding-left: 30px;
+}
+
+/*---------------имена категорий----------*/
+.container_r h3.category_name {
+    font-size: 28px;
+    text-align: center;
+}
+
+
+/*----------------миниатюры категорий--------*/
 .catalog .category_min {
     padding-bottom: 20px
-}
-.catalog h3 {
-    text-align: center;
 }
 
 .catalog a {
     color: #1F0F06
+}
+
+/*--------Для планшетов------------*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .container_r h3.category_name {
+        font-size: 24px
+    }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+
 }

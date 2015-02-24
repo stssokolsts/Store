@@ -7,18 +7,18 @@ from caching.caching import cache_update, cache_evict
 LAST_PRODUCT = "last_products"
 
 class ActiveCategoryManager(models.Manager):
-    def get_query_set(self):
-        return super(ActiveCategoryManager, self).get_query_set().filter(is_active=True)
+    def get_queryset(self):
+        return super(ActiveCategoryManager, self).get_queryset().filter(is_active=True)
 
 
 class ActiveProductManager(models.Manager):
-    def get_query_set(self):
-        return super(ActiveProductManager, self).get_query_set().filter(is_active=True)
+    def get_queryset(self):
+        return super(ActiveProductManager, self).get_queryset().filter(is_active=True)
 
 
 class ActiveFillingManager(models.Manager):
-    def get_query_set(self):
-        return super(ActiveFillingManager,self).get_query_set().filter(is_active=True)
+    def get_queryset(self):
+        return super(ActiveFillingManager,self).get_queryset().filter(is_active=True)
 
 
 class Brand(models.Model):

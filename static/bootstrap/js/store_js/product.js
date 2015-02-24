@@ -36,7 +36,7 @@ function add_cart() {
             }
             else if (json.success == 'True')
             {
-                $('#add_button').css({'background-color':'#4CAE4C','width':'117'})
+                $('#add_button').css({'background-color':'#4CAE4C','width':'130','font-size':'16px'})
                     .html(' Добавлено! <i class="glyphicon glyphicon-ok icon-white"></i>').attr('disabled',true);
                 $('#count_products').text(json.count);
                 $('#go_cart').show();
@@ -50,6 +50,7 @@ function add_cart() {
 }
 
 function prepareDocument() {
+    //$('[rel="tooltip"]').tooltip();
     $("#add_button").click(add_cart);
 }
 

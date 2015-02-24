@@ -13,21 +13,23 @@
     <div class="row product_detail">
         <div class="row">
 	        <div class="col-md-10">
-		        <h1 style="margin-bottom: 0; padding-left: 10px">{{ p.name }}</h1>
+		        <h1 class="product-page-header">{{ p.name }}</h1>
 	        </div>
 	        <div class="col-md-2">
-		        <div class="">
-					<img class="img-responsive" style="max-width: 110px" src="{% static "image/2q3.png" %}">
-		        </div>
+		        {% if p.brand.image %}
+			        <div class="">
+						<img class="img-responsive brand-image" src="{% static p.brand.image %}">
+			        </div>
+		        {% endif %}
 	        </div>
         </div>
         <hr>
         <!-- Product Image & Available Colors -->
         <div class="row">
 	        <div class="col-md-7 image_detail" >
-            <div class="thumbnail" id="links">
-                <a  title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
-            </div>
+	            <div class="thumbnail" id="links">
+	                <a  title="{{ p.name }}" href="{% static p.image %}" data-gallery><img id="target" class="img-responsive" src="{% static p.image.url %}" alt=""></a>
+	            </div>
 	        </div>
 	        <!-- End Product Image & Available Colors -->
 	        <div class="col-md-5 product_info">

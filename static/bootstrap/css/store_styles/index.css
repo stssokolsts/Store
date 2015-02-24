@@ -1,0 +1,29 @@
+.panel-default {
+    background-color: #F7DB9F;
+    border-color: #996D31;
+}
+
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: #D0A974;
+    border-color: #996D31;
+}
+
+.panel_header {
+    color: #000000;
+}
+
+.btn-default {
+    background-color: #996D31;
+    color: #ffffff;
+    border-color: #996D31;
+
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}

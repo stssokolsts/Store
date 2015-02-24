@@ -1,0 +1,122 @@
+
+/*---------Заголовок контента------------- */
+.my_page_header .page-header{
+    border-bottom: 1px solid #1F0F06 ;
+    margin-bottom: 5px;
+}
+
+/*Контейнер главного контента */
+.container_r {
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+.container_r .main_content {
+    padding-right: 30px
+}
+
+.container_r .category_names {
+    font-size: 30px
+}
+
+/*----------Левое меню----------*/
+.left_sidebar {
+    padding-left: 40px
+}
+
+.left_sidebar .search {
+    font-size: 25px
+}
+
+.left_sidebar .search h3 {
+    margin-top: 0;
+}
+
+/*------------Кнопка "Наверх"------------------*/
+#scrollUp {
+	bottom: 20px;
+	right: 70px;
+	background: #6E4A29;
+	color: #fff;
+	font-size: 15px;
+	font-family: sans-serif;
+	text-decoration: none;
+	opacity: .9;
+	padding: 14px 24px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-transition: background 200ms linear;
+	-moz-transition: background 200ms linear;
+	transition: background 200ms linear;
+}
+#scrollUp :hover {
+	    background: #000;
+        //cursor: auto;
+	}
+/*--------------------------------------------------------------------------
++	Боковое меню
+--------------------------------------------------------------------------*/
+.category_list .menu-item {
+    font-size: 19px;
+    color: #1F0F06;
+}
+
+.category_list .menu-item_active{
+    color: #4e3d20;
+    border: 1px #1f0f06 solid;
+    -webkit-border-radius: 20px;
+    background-color: #eedca9;
+    border-radius: 20px;
+}
+
+.category_list .nav > li > a:hover,
+.category_list .nav > li > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  color: #bc742e;
+}
+
+.category_list .nav > li.menu-item_active > a:hover,
+.category_list .nav > li.menu-item_active > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  color: #1F0F06;
+}
+
+.category_list .category_navbar {
+    background-color: #ddb680;
+    border-color: #000000;
+}
+
+
+/*-----Для телефонов----------*/
+@media (max-width: 767px) {
+    #scrollUp {
+        display: none !important;
+    }
+}
+
+
+
+/*--------Для планшетов------------*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .category_list .menu-item {
+        font-size: 16px;
+        color: #1F0F06;
+    }
+    .category_list h3.category_names {
+        font-size: 25px;
+    }
+    .search h3 {
+        font-size: 20px;
+    }
+
+    .pop_products h3 {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1103px) {
+
+}

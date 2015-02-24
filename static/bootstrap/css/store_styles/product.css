@@ -8,8 +8,14 @@
 }
 
 /*Заголовок*/
-.product_detail h2 {
-    padding-left: 40px;
+.product_detail .product-page-header {
+    margin-bottom: 0;
+    padding-left: 10px
+}
+
+/*Изображения бренда*/
+.product_detail .brand-image {
+    max-width: 110px;
 }
 
 /*Подчеркивание*/
@@ -20,7 +26,7 @@
 /*Подробности продукта*/
 .product_detail .product_info {
     font-size: 20px;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 
@@ -36,17 +42,19 @@
 
 /*Цена*/
 .product_detail .product_info .price_cart .price {
-    margin-top: 0px;
+    margin-top: 0;
     font-size: 38px;
     text-align: center
 }
 
 /*Добавление в корзину кнопка*/
 .product_detail .product_info .add_cart #add_button {
-    width: 110px;
-    margin-top: 10px;
+    width: 130px;
+    //margin-top: 10px;
     background-color: #6E4A29;
-    color: #ffffff
+    color: #ffffff;
+    height: 50px;
+    font-size: 17px;
 }
 
 #id_description textarea{
@@ -71,4 +79,42 @@
 
 .rec_div .thumbnails {
     border: 1px solid #1F0F06;
+}
+
+#id_description {
+    max-height: 50px;
+    resize: none;
+}
+
+#go_cart {
+    font-size: 13px;
+}
+
+@media (max-width: 767px) {
+
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+
+}
+
+@media (max-width: 1200px) and (min-width: 991px) {
+    .product_detail {
+        padding-right: 10px;
+    }
+
+    /*Описание*/
+    .product_detail .product_info .description_product {
+        padding-bottom: 0;
+    }
+
+    .product_detail .product_info .description_product h5{
+        font-size: 18px;
+    }
+
+
+
+    .count-row .count-form .form-control {
+        height: 28px;
+    }
 }

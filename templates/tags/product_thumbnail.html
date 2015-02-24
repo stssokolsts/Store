@@ -1,7 +1,7 @@
 {% load staticfiles %}
 {% load catalog_filters %}
 {% for p in products%}
-<div class=" col-md-6 products_min ">
+<div class=" col-md-6 col-sm-6 col-xs-12 products_min ">
     <div class="product_thumbnail">
     {% if discount %} <img class="discounts_img img-responsive" src="{% static "bootstrap/img/1212.gif" %}"> {% endif %}
         <div class="thumbnail  {% if discount %} discounts {% endif %}">
@@ -27,31 +27,33 @@
                 {% endif %}
                 <hr>
                 <div class="row price_weight" >
-                    <div class="col-md-7" >
-                        <div class="thumb_price" {%  if p.old_price > 0  %} style="background-color: #fafb5a;" {% endif %}>
+                    <div class="col-md-7 col-sm-7 col-xs-7 about_order" >
+                        <div class="thumb_price {%  if p.old_price > 0  %} new_price_div {% endif %}">
+
 	                        {%  if p.old_price > 0  %}
 		                        <span class="new_price"> {{ p.price|currency }}</span>
 	                            <span class="old_price">{{ p.old_price|currency }}</span>
                             {% elif p.weight %}
 		                        <span class="price"> {{ p.price|currency }}
-		                        | {{ p.weight }} кг</span>
+		                        <span class="weight-price">| {{ p.weight }} кг</span> </span>
 	                        {% else %}
 	                        <span> {{ p.price|currency }}</span>
 	                        {% endif %}
-
                         </div>
                     </div>
-                    <div class="col-md-5 add_order">
-                    {% if not p.choice_weight %}
-	                    <form method="post" action="." class="cart add_form" id="{{ p.slug }}">
-                            {% csrf_token %}
-		                    <input id="id_product_slug" name="product_slug" value="{{ p.slug}}" type="hidden">
-		                    <button id="{{ p.slug }}_button" class="btn add_button" type="submit">В корзину
-			                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>
-						</form>
-                    {% else %}
-	                    <a href="{{ p.get_absolute_url }}"><div class = "detail_button" style="">Подробнее</div></a>
-                    {% endif %}
+                    <div class="col-md-5 col-sm-5 col-xs-5 add_order">
+	                    {% if not p.choice_weight %}
+		                    <form method="post" action="." class="cart add_form" id="{{ p.slug }}">
+	                            {% csrf_token %}
+			                    <input id="id_product_slug" name="product_slug" value="{{ p.slug}}" type="hidden">
+			                    <button id="{{ p.slug }}_button" class="btn add_button" type="submit">В корзину
+				                    <i class="glyphicon glyphicon-shopping-cart icon-white"></i></button>
+							</form>
+	                    {% else %}
+		                    <a href="{{ p.get_absolute_url }}">
+			                    <div class = "btn add_button">Подробнее</div>
+		                    </a>
+	                    {% endif %}
                     </div>
                 </div>
             </div>

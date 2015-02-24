@@ -5,8 +5,7 @@
 
 function add_cart_from_catalog() {
     var id = this.id;
-    $('#'+id+'_button').css({'width':'117'})
-                    .html(' Отправка... ').attr('disabled',true);
+    $('#'+id+'_button').html(' Отправка... ').attr('disabled',true);
     //$(this).html("Отправка...");
     //alert("ага!");
     //alert(id);
@@ -26,7 +25,7 @@ function add_cart_from_catalog() {
             else if (json.success == 'True')
             {
                 //alert("добавили!");
-                $('#'+id+'_button').css({'background-color':'#4CAE4C','width':'130px','font-size':'16px'})
+                $('#'+id+'_button').css({'background-color':'#4CAE4C'})
                     .html('  Добавлено! <i class="glyphicon glyphicon-ok icon-white"></i>').attr('disabled',true);
                 $('#count_products').text(json.count);
                /*// $('#go_cart').show();
@@ -103,7 +102,7 @@ function sort_products() {
     }, function(data) {
         $.ajax({
             success: function() {
-                $("#show_products").html(data).hide().fadeIn(1000);
+                $("#show_products .row").html(data).hide().fadeIn(1000);
                 var s_n = $(".sort_n");
                 var s_p = $(".sort_p");
                 if (pred_id !== "name" && id == "namea") {
@@ -197,7 +196,7 @@ function sort_products() {
                     else if (s_n.attr('id') == "namea")
                         document.getElementById('namea').id = "name";
                 } else if (pred_id == "name" && id == "namea") {
-                    $("#my_glyphicon_name").replaceWith("<i id=\"my_glyphicon_name\" class=\"glyphicon glyphicon-arrow-up icon-arrow-up\"></i>")
+                    $("#my_glyphicon_name").replaceWith("<i id=\"my_glyphicon_name\" class=\"glyphicon glyphicon-arrow-up icon-arrow-up\"></i>");
                     $("#my_glyphicon_name").css({
                         'visibility': 'visible'
                     });
@@ -232,38 +231,6 @@ function load_products() {
     /*$(".products_min").css("display", "none").fadeIn(500);
     $(".category_min").css("display", "none").fadeIn(500);*/
 }
-
-$(window).scroll(function(){
-			if ($(window).scrollTop() > 1200)
-            {
-               // $(scrollId).css({'display':'none','position': 'fixed','z-index': '2147483647'});
-            }
-    else {
-
-            }
-		});
-
-
-$(window).scroll(function(){
-    h = $(document).outerHeight(true);
-    if ($(window).scrollTop() > 1200) {
-        //alert($(document).outerHeight(true));
-        //$()
-        $(".main_content").removeClass("col-md-9");
-        $(".main_content").addClass("col-md-12");
-        $(".products_min").removeClass("col-md-6");
-        $(".products_min").addClass("col-md-4");
-        $(".left_sidebar").css("display","none");
-    }
-    else {
-        $(".main_content").removeClass("col-md-12");
-        $(".main_content").addClass("col-md-9");
-        $(".products_min").removeClass("col-md-4");
-        $(".products_min").addClass("col-md-6");
-        $(".left_sidebar").css("display","block");
-    }
-});
-
 
 $(function () {
     $.scrollUp({

@@ -28,16 +28,18 @@ class AddToCartFromCategory(AddToCart):
 
 class AddToCartForm(forms.Form):
     description = forms.CharField (widget=forms.Textarea(attrs={'class':'form-control', 'rows': '3',
-                                        'placeholder': "Любое оформление верхушки торта"}),
-                                   label='Выбор оформления: ',
+                                        'placeholder': "Поздравительная надпись"}),
+                                   label='Выбор оформления',
                                    required=False)
     product_slug = forms.CharField(widget=forms.HiddenInput())
     filling_choice = forms.ModelChoiceField(queryset=Filling.active.all(),
                                             empty_label=None,
-                                            label="Основа:",
+                                            label="Основа",
                                             widget=forms.Select(attrs={'class':'form-control'}),
                                             )
-    weight = forms.FloatField (widget=forms.TextInput(attrs={'size': '2','value':'1','class':'form-control'}),
+    weight = forms.FloatField (widget=forms.TextInput(attrs={'size': '2','value':'3.5','class':'form-control',
+                                                             'type':'number', 'step':'0.5', 'max':'20',
+                                                             'min':'1'}),
                                 error_messages={'invalid' : 'Пожалуйста, введите корректное значение!'},
                                 min_value=1, max_value=20,
                                 label='Вес: ')
@@ -55,8 +57,6 @@ class AddToCartForm(forms.Form):
             if not self.request.session.test_cookie_worked():
                 raise forms.ValidationError("Cookies must be enabled.")
         return self.cleaned_data
-
-
 
 
 class ProductAdminForm(forms.ModelForm):

@@ -2,7 +2,9 @@
 {% load staticfiles %}
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="{% static "image/cake1.ico" %}" rel="shortcut icon" type="image/x-icon" />
+
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 	    <title>{% block title %}{% if page_title %}{{ page_title }} - {% endif %} 
             {{ site_name }}{% endblock %}
@@ -15,23 +17,26 @@
         <!--Галерея -->
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap_styles/blueimp-gallery.min.css">
 	    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap_styles/bootstrap-image-gallery.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/base_main.css">
+
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/tags.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/accounts.css">
+	    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/base_main.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/catalog_base.css">
 		{% block css %}
         {% endblock  %}
         <!----------------------------------------scripts--------------------------------------------------------------->
 	    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="{{ STATIC_URL }}bootstrap/js/other_libs/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}bootstrap/js/blueimp-gallery.min.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/other_libs/blueimp-gallery.min.js"></script>
 
-		<script src="{{ STATIC_URL }}bootstrap/js/bootstrap-image-gallery.min.js"></script>
+		<script src="{{ STATIC_URL }}bootstrap/js/other_libs/bootstrap-image-gallery.min.js"></script>
         {% comment %}<script src="{{ STATIC_URL }}bootstrap/js/jquery.lazyload.min.js"></script>{% endcomment %}
 		{% comment %}<script src="{{ STATIC_URL }}bootstrap/js/demo.js"></script>{% endcomment %}
         <script src="{{ STATIC_URL }}bootstrap/js/jquery-ui-1.10.3.custom.min.js"></script>
         <script src="{{ STATIC_URL }}bootstrap/js/other_libs/jquery.blueimp-gallery.min.js"></script>
 		<script src="{{ STATIC_URL }}bootstrap/js/other_libs/jquery.lazyload.min.js"></script>
         <script src="{{ STATIC_URL }}bootstrap/js/store_js/accounts.js"></script>
+
         <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         {% block other_scripts  %}
         {% endblock %}

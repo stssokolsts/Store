@@ -1,0 +1,27 @@
+{% load catalog_tags %}
+<div id = "navigation_list">
+	<ul class="nav navbar-nav">
+	    <li class=" hidden-xs"><a href="{% url 'catalog' %}"> Каталог</a></li>
+		<li class="dropdown visible-xs-block">
+			  <a href="#" class="dropdown-toggle" style="" data-toggle="dropdown">
+				  <i class="glyphicon glyphicon-picture visible-xs-inline" ></i>
+				  Каталог<b class="caret"></b></a>
+			  <ul class="dropdown-menu">
+				{% category_list request.path  %}
+			  </ul>
+
+			</li>
+	    <li><a href="{% url 'discounts' %}"><i class="glyphicon glyphicon-gift visible-xs-inline" ></i> Акции</a></li>
+	    <li><a href="/delivery/"><i class="glyphicon glyphicon-info-sign visible-xs-inline" ></i> Условия заказа</a></li>
+	    <li><a href="/about/"><i class="glyphicon glyphicon-earphone visible-xs-inline" ></i> О нас</a></li>
+		<hr style="border-color: #bc742e;margin-bottom: 0" class="visible-xs-block">
+		<li class="visible-xs-block"><a href=""><i class="glyphicon glyphicon-shopping-cart icon-white visible-xs-inline"></i> Корзина (1) </a> </li>
+	    {% comment %}{% if user.is_authenticated %}{% endcomment %}
+	    {% comment %}
+	    <li style=" display:block; float:left; position:relative; right:50%;"><a href="{% url 'my_account' %}">Моя страница</a></li>
+	    {% endcomment %}
+	    {% comment %}{% else %}
+	    <li style=" display:block; float:left; position:relative; right:50%;"><a href="#sign_up_modal" data-toggle="modal">Моя страница</a></li>
+	    {% endif %}{% endcomment %}
+	</ul>
+</div>

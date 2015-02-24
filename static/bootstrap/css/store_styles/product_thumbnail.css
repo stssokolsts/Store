@@ -7,7 +7,7 @@
 /*миниатюры*/
 .products_min .thumbnail{
     background-color: #fbe0b9;
-    max-height: 470px ;
+    max-height: 600px ;
     border-color: #1F0F06
 }
 
@@ -28,62 +28,55 @@
     font-size: 22px;
 }
 
+
+/*строка цены и веса*/
+.products_min .caption .price_weight {
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.products_min .caption .price_weight .thumb_price{
+        font-size: 21px;
+    }
+
+.products_min .price_weight .about_order {
+    height: 100%;
+}
+
 /*цена продукта*/
 .products_min .caption .price_weight .thumb_price{
-    height: 40px;
+    height: 100%;
     color: #4e3d20;
     border: 1px #1f0f06 solid;
     -webkit-border-radius: 15px;
     border-radius: 15px;
     background-color: #fbe1af;
-
-    text-align: center;
     padding-top: 3px;
-    font-size: 18px;
-    line-height: 35px;
-
 }
+
+
 
 /*div кнопки "Добавить в корзину" */
 .products_min .price_weight .add_order {
-    padding-right: 20px;
+    padding : 0 20px 0 0;
+    height: 100%;
 }
 
-.products_min .price_weight .add_order .detail_button {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 17px;
-    font-weight: normal;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    float: right;
-    width: 130px;
-    background-color: #6E4A29;
-    color: #ffffff;
-    height: 40px;
+.products_min .price_weight .add_order form {
+    height: 100%;
 }
 
 
 /*Добавить в корзину- кнопка*/
 .products_min .caption .price_weight .add_button {
     float: right;
-    width: 130px;
-
+    width: 100%;
     background-color: #6E4A29;
     color: #ffffff;
-    height: 40px;
+    height: 100%;
     font-size: 17px;
+    line-height: inherit;
 }
 
 /*Добавлено в корзину - кнопка*//*
@@ -96,15 +89,206 @@
     font-size: 17px;
 }*/
 
+.products_min .caption .price_weight .new_price_div {
+    background-color: #fafb5a
+}
+
+.products_min .caption .price_weight .weight-price {
+
+}
+
 .products_min .caption .price_weight .old_price {
     text-decoration: line-through;
     font-size: 18px;
     margin-left: 7px;
-    line-height: 35px;
 }
 
 .products_min .caption .price_weight .new_price {
     color: red;
-    font-size: 21px;
-    line-height: 35px;
+    font-size: 24px;
+}
+
+@media (max-width: 767px) {
+    .products_min {
+        padding: 15px 0  ;
+    }
+    /*-------------------цена-------------------*/
+    .products_min .caption .price_weight .thumb_price{
+        font-size: 19px;
+    }
+    /*-------------------кнопка подробности-------------------*/
+    .products_min .price_weight .add_order .detail_button {
+        font-size: 16px;
+    }
+
+    /*-------------------Добавить в корзину- кнопка----*/
+    .products_min .caption .price_weight .add_button {
+        font-size: 15px;
+    }
+    /*-------------------старая цена-------------------*/
+    .products_min .caption .price_weight .old_price {
+        font-size: 16px;
+        margin-left: 7px;
+    }
+    /*-------------------новая цена-------------------*/
+    .products_min .caption .price_weight .new_price {
+        font-size: 20px;
+    }
+    /*--------------------скрываем вес---------------*/
+    .products_min .caption .price_weight .weight-price {
+        display: none;
+    }
+    .caption .name_product {
+        font-size: 21px;
+    }
+
+    .container_r .main_content {
+        padding: 0;
+    }
+    .products_min .price_weight .add_order {
+        padding-right: 14px
+    }
+    .products_min .price_weight .about_order {
+        padding-right: 10px;
+    }
+}
+
+/*--------Для планшетов------------*/
+@media (min-width: 768px) and (max-width: 991px) {
+/*-------------------цена-------------------*/
+    /*строка цены и веса*/
+    .products_min .caption .price_weight {
+        height: 40px;
+        line-height: 30px;
+    }
+
+    .products_min .caption .price_weight .thumb_price{
+        font-size: 19px;
+        margin-right: 15px;
+    }
+    /*-------------------кнопка подробности-------------------*/
+    .products_min .price_weight .add_order .detail_button {
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    /*-------------------Добавить в корзину- кнопка----*/
+    .products_min .caption .price_weight .add_button {
+        font-size: 12px;
+    }
+    /*-------------------старая цена-------------------*/
+    .products_min .caption .price_weight .old_price {
+        font-size: 15px;
+        margin-left: 1px;
+    }
+    /*-------------------новая цена-------------------*/
+    .products_min .caption .price_weight .new_price {
+        font-size: 18px;
+    }
+    /*--------------------скрываем вес---------------*/
+    .products_min .caption .price_weight .weight-price {
+        display: none;
+    }
+    .caption .name_product {
+        font-size: 21px;
+    }
+    /*----------------уменьшаем отступы------------------*/
+    .products_min {
+        padding-right: 10px ;
+        padding-bottom: 15px ;
+    }
+    .caption hr {
+        margin: 20px 0;
+    }
+
+    .products_min .price_weight .add_order {
+        padding-right: 12px;
+    }
+
+    .products_min .price_weight .about_order {
+        padding-right: 0
+    }
+}
+
+
+/*----------------для больших----------------*/
+@media (min-width: 992px) and (max-width: 1130px) {
+    /*-------------------цена-------------------*/
+    .products_min .caption .price_weight .thumb_price{
+        padding-top: 3px;
+        font-size: 19px;
+        margin-right: 10px;
+
+    }
+    /*-------------------кнопка подробности-------------------*/
+    .products_min .price_weight .add_order .detail_button {
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    /*-------------------Добавить в корзину- кнопка----*/
+    .products_min .caption .price_weight .add_button {
+        font-size: 15px ;
+    }
+    /*-------------------старая цена-------------------*/
+    .products_min .caption .price_weight .old_price {
+        font-size: 16px ;
+        margin-left: 7px;
+    }
+    /*-------------------новая цена-------------------*/
+    .products_min .caption .price_weight .new_price {
+        font-size: 20px;
+    }
+    /*--------------------скрываем вес---------------*/
+    .products_min .caption .price_weight .weight-price {
+        display: none;
+    }
+    .caption .name_product {
+        font-size: 21px;
+    }
+    /*----------------уменьшаем отступы------------------*/
+    .products_min {
+        padding-right: 40px ;
+        padding-bottom: 20px ;
+    }
+
+    .products_min .price_weight .about_order {
+        padding-right: 0
+    }
+
+    .products_min .price_weight .add_order {
+        padding-right: 12px;
+    }
+}
+
+@media (min-width: 1131px) and (max-width: 1212px) {
+    /*---------цена продукта----------*/
+    .products_min .caption .price_weight .thumb_price{
+        padding-top: 3px;
+        font-size: 19px;
+        margin-right: 5px;
+    }
+    /*-------------------кнопка подробности-------------------*/
+    .products_min .price_weight .add_order .detail_button {
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 16px;
+        vertical-align: middle;
+    }
+
+    /*-------------------Добавить в корзину- кнопка-----------*/
+    .products_min .caption .price_weight .add_button {
+        font-size: 16px ;
+    }
+}
+
+
+@media (max-width: 430px) {
+    .products_min .caption .price_weight .add_button {
+        font-size: 14px;
+    }
 }

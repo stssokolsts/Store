@@ -1,0 +1,28 @@
+{% load staticfiles %}
+{% if user.is_authenticated %}
+	<p style="">
+	    {% if provider == "vk-oauth" %}
+	    <img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+	    class="img-social">
+	    {% elif provider == "facebook"%}
+	    <img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/fb.png" %}"
+	    class="img-social">
+	    {% elif provider == "odnoklassniki"%}
+	    <img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/ok.png" %}"
+	    class="img-social">
+	    {% elif provider == "vk-oauth"%}
+	    <img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+	    class="img-social">
+	    {% elif provider == "vk-oauth"%}
+	    <img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
+	    class="img-social">
+	    {% endif %}
+	    Добро пожаловать, {{ user_name }}!<span> | </span>
+	    <a style=" color: #e2ac79;" href="{% url 'django.contrib.auth.views.logout' %}?next={{request.path|urlencode}}">Выйти</a>
+	</p>
+{% else %}
+	<div class="reg_div" style="">
+	    <a href="#" class="get-reg-modal" style="">Зарегистрироваться</a><span > | </span>
+	    <a href="#" class="get-login-modal">Войти</a>
+	</div>
+{% endif %}

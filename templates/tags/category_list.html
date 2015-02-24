@@ -1,0 +1,12 @@
+
+       {% for c in active_categories %}
+	      {% ifequal c.get_absolute_url request_path %}
+		      <li class="menu-item_active" >
+		         <a class="menu-item">{{ c.name }}</a>
+		      </li>
+		      {% else %}
+		      <li class="menu-item_non_active">
+		         <a href="{{ c.get_absolute_url }}" class="menu-item">{{ c.name }}<br></a>
+		      </li>
+	      {% endifequal %}
+      {% endfor %}

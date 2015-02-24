@@ -37,9 +37,7 @@ function remove_cart() {
                 tr.remove();
                 $('#count_products').text(json.count);
                 s = json.cart_subtotal.toString().replace(rgx, '$1,');
-               // alert($(".cart_info_total h4").html());
                 $(".cart_info_total h4").html("Всего: "+s+" р");
-                //alert($(".cart_info_total h4").html());
             }
             //если корзина оказалась пустой
             if (json.count ==0) {

@@ -1,16 +1,16 @@
 {% load staticfiles %}
 {% load catalog_filters %}
-<div class="row description_product detail" >
+<div class="row description_product detail count-row" >
 	<form method="post" action="" class="cart" id="cart">
-   <div class="col-md-4 ">
-      <h5> {{ form_cart.quantity.label }}</h5>
-   </div>
-   <div class="col-md-3 form-group" >
-      {{ form_cart.quantity }}
-   </div>
-   <div class="col-md-5 help_line" id = '{{ form_cart.quantity.name  }}_error'>
-	   {{ form_cart.quantity.errors  }}
-   </div>
+    <div class="col-md-4 ">
+        <h5> {{ form_cart.quantity.label }}</h5>
+    </div>
+    <div class="col-md-3 form-group count-form" >
+        {{ form_cart.quantity }}
+    </div>
+    <div class="col-md-5 help_line" id = '{{ form_cart.quantity.name  }}_error'>
+	    {{ form_cart.quantity.errors  }}
+    </div>
 </div>
 <div class="row detail description_product  ">
 	<div class="col-md-12 des">

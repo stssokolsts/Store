@@ -1,46 +1,49 @@
 {% load staticfiles %}
 {% load catalog_filters %}
-<div class="row description_product choice_detail ">
+<div class="row description_product choice_detail weight-row">
     <form method="post" action="" class="cart" id="cart">
-        <div class="col-md-2 ">
+        <div class="col-md-2 col-sm-2">
             <h5> {{ form_cart.weight.label }}</h5>
         </div>
-        <div class="col-md-3 form-group" >
+        <div class="col-md-3 col-sm-3q form-group weight-form">
             {{ form_cart.weight }}
         </div>
-	    <div class="col-md-7 error_description"  id = '{{ form_cart.weight.name  }}_error' >
+	    <div class="col-md-1 col-sm-1 weight-kg" >
+            кг
+        </div>
+	    <div class="col-md-6 col-sm-6 error_description weight-errors"  id = '{{ form_cart.weight.name  }}_error' >
             {{ form_cart.weight.errors }}
 		</div>
-        {% comment %}<div class="col-md-4 pull-right">
-            <img class="img-responsive" style="" src="{% static "image/2q3.png" %}">
-        </div>{% endcomment %}
 </div>
 <div class="row description_product choice_detail">
     <div class="col-md-12">
-        <h5>{{ form_cart.description.label }}</h5>
-        <div class="control-group error">
-            <p>
-                {{ form_cart.description }}
-            </p>
+        <h5 style="margin-top: 0px ">{{ form_cart.description.label }}:
+        </h5>
+        <div class="">
+	        <div class="">
+		        {{ form_cart.description }}
+	        </div>
+	        <span class="help-block">
+		        В зависимости от Ваших пожеланий, верхушка торта может быть украшена поздравительной надписью (бесплатно)
+	        </span>
             <div class="col-md-12 help_line" id = '{{ form_cart.description.name  }}_error' >
                 {{ form_cart.description.errors }}
             </div>
         </div>
-        <h5>{{ form_cart.filling_choice.label }}</h5>
+        <h5>{{ form_cart.filling_choice.label }}:</h5>
         <div class="input-group">
             <span class="input-group-btn">
             <button class="btn btn-default" data-toggle="modal" data-target="#myModal" type="button">?</button></span>
             {{ form_cart.filling_choice }}
-
         </div>
-        <span  class="help-block">Различные варианты выбора начинки торта </span>
+        <span  class="help-block">Различные варианты выбора начинки торта. Нажмите "?" для просмотра более подробной информации </span>
     </div>
 </div>
 <div class="row price_cart choice_detail">
-    <div class="col-md-6">
-        <div class="price">{{ p.price|currency }}</div>
+    <div class="col-md-7" style="padding-right: 0">
+        <div class="price">{{ p.price|currency }} <span style="font-size: 16px"> (за кг) </span></div>
     </div>
-    <div class="col-md-6 add_cart">
+    <div class="col-md-5 add_cart" style="padding-left: 0">
         {% csrf_token %}
         <button type="submit" id="add_button" class="btn pull-right" >
         В корзину  <i class="glyphicon glyphicon-shopping-cart icon-white"></i>
@@ -49,4 +52,14 @@
         </form>
         <a id="go_cart" class="pull-right"  href="{% url 'show_cart' %}">Перейти в корзину <i class="glyphicon glyphicon-shopping-cart icon-white"></i></a>
     </div>
+</div>
+<!-- Написать HTML -->
+{% comment %}<a href="#" id="example" data-toggle="tooltip" title="Some tooltip text!">Hover over me</a>{% endcomment %}
+<!-- Создание разметки с помощью плагина -->
+<div class="tooltip top" role="tooltip">
+  <div class="tooltip-arrow"></div>
+  <div class="tooltip-inner">
+    В зависимости от Ваших пожеланий, верхушка торта может быть украшена поздравительной надписью.
+	Окончательная стоимость торта зависит только от выбора его веса - дополнительное оформление надписью является бесплатным.
+  </div>
 </div>

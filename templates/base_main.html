@@ -2,136 +2,86 @@
 {% load staticfiles %}
 {% load catalog_tags %}
 {% load accounts_tags %}
-{% block css %}
-	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/accounts.css">
-{% endblock %}
 {% block other_scripts %}
 	<script src="{{ STATIC_URL }}bootstrap/js/other_libs/jquery.lazyload.min.js"></script>
 {% endblock %}
 {% block site_wrapper %}
 	<div id="main">
-	    <!-- Navigation -->
-	    <div id="navigation" class="">
-	        <!-- Main menu-->
-	        <nav class="navbar navbar-inverse navbar" role="navigation">
-	            <!-- Brand-->
-	            <div class="col-md-3">
-	                <div class="navbar-header" id="header_main" >
-	                    <a href="{% url 'catalog_home' %}"><img src="{% static 'image/3.png' %}" class="img-responsive" alt="{{ p.name }}"></a>
+	    <!-- Навигационное меню-->
+	    <div id="navigation">
+	        <nav class="navbar navbar" role="navigation">
+	            <div class="">
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle menu_button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    </button>
+	                    <a class="navbar-brand visible-xs-block" href="#">Вкусный праздник</a>
 	                </div>
-	            </div>
-	            <!-- Navigation-->
-	            <div class="col-md-6">
-		            <div class="row" style="text-align: center; font-size: 16px; color: #e8cda2; padding-top: 9px">
-			            {% if user.is_authenticated %}
-						<p style="">
-							{% if provider == "vk-oauth" %}
-								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
-							                                     class="img-social">
-							{% elif provider == "facebook"%}
-								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/fb.png" %}"
-							                                     class="img-social">
-							{% elif provider == "odnoklassniki"%}
-								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/ok.png" %}"
-							                                     class="img-social">
-							{% elif provider == "vk-oauth"%}
-								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
-							                                     class="img-social">
-							{% elif provider == "vk-oauth"%}
-								<img style="max-width: 30px; padding-right: 5px" src="{% static "image/social/vk.png" %}"
-							                                     class="img-social">
-							{% endif %}
-							Добро пожаловать, {{ user_name }}!<span> | </span>
-
-							<a style=" color: #e2ac79;" href="{% url 'django.contrib.auth.views.logout' %}?next={{request.path|urlencode}}">Выйти</a>
-						</p>
-
-						{% else %}
-				            <div class="reg_div" style="">
-				                <a href="#" class="get-reg-modal" style="">Зарегистрироваться</a><span > | </span>
-							    <a href="#" class="get-login-modal">Войти</a>
-				            </div>
-
-			            {% endif %}
-		            </div>
-	                <div class="row mainmenu" id = "mainmenu">
-	                    {% include 'tags/navigation.html' %}
+	                <div class="col-md-3 col-sm-3  hidden-xs nav-brand">
+	                    <div class="">
+	                        <a href="{% url 'catalog_home' %}"><img src="{% static 'image/3.png' %}" class="img-responsive brand-image" alt="{{ p.name }}"></a>
+	                    </div>
 	                </div>
-	                <!-- Extras menu-->
-	            </div>
-	            <div class="col-md-3">
-	                <div class="mainmenu_contact">
-	                    <p>+79102413467 <br> <span style="font-size: 20px"> ул.Ломоносова 114/8</span></p>
-	                    <div class="cart_box">
-	                        {% cart_box request %}
+	                <div class="col-md-6 col-sm-6  nav-list">
+	                    <div class="mainmenu row">
+	                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	                            {% include 'tags/navigation.html' %}
+	                        </div>
+	                        <!-- /.navbar-collapse -->
+	                    </div>
+	                </div>
+	                <div class="col-md-3 col-sm-3 hidden-xs nav-info">
+	                    <div class="mainmenu_contact">
+	                        <p>+79102413467 <br> <span class="address_contact"> ул.Ломоносова 114/8</span></p>
+	                        <div class="cart_box">
+	                            {% cart_box request %}
+	                        </div>
 	                    </div>
 	                </div>
 	            </div>
 	        </nav>
 	    </div>
-	    <!-- endNavigation -->
-	    <!-- nav and items -->
-	    <!--	<div class="container">
-	        <div class="row">
-	          <div class="col-md-8 top_navigation">
-	             <p><a href="#" >Категории</a> >> <a href="#" >Торжественные >></a>  </p>
-	          </div>
-	          <div class="col-md-4">
-	             <form class="form-search">
-	                <input type="text" class="form-control" placeholder="Поиск по каталогу">
-	             </form>
-	          </div>
-	        </div>
-	        </div>-->
-	    <!-- Content -->
 	    {% block content %}
 	    {% endblock %}
-{% register_modal %}
-		<div id="footer">
-	        <div class="footer">
-	            <div class="" style="margin: 0 30px;" >
-		            <div class="row">
-			            <div class="col-md-3" style="height: 100px">
-				            <div >
-								<img style="max-width: 120px; margin-top: 15px"
-								     src="{% static 'image/4a071c64184f6ed127d1b90fcde1a863_L.png' %}"
-								     class="center-block img-responsive">
-				            </div>
-			            </div>
-			            <div class=" col-md-6">
-				            <div class="center-block">
-					            <div class="row" style="font-size: 20px;">
-									{% include "tags/navigation.html" %}
-					            </div>
-					            <div class="row" style=" color: #D39A5A; text-align: center">
-						            <div class="col-md-6">
-							            <p><span style="color: #fbe1af"> Адрес:</span> г. Воронеж ул.Ломоносова 114/8</p>
-						            </div>
-						            <div class="col-md-6">
-							            <p<span style="color: #fbe1af"> E-mail:</span> <a href="mailto:getintoutch@yourcompanydomain.com">intoutch@yourcompanydomain.com</a></p>
-						            </div>
-
-						            <div class="footer-copyright" style="color: #fbe1af"> &copy; 2013 Проектирование и создание сайта : студия "ЖенькаПузяш"</div>
-						            {% comment %}<b>Адрес:</b> г.Воронеж ул.Ломоносова 114/8<br/>
-	                                <b>Телефон:</b> +44 123 654321<br/>
-	                                <b>Телефон:</b> +44 123 654321<br/>
-	                                <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">intoutch@yourcompanydomain.com</a>{% endcomment %}
-						            {% comment %}<div class="footer-copyright">&copy; 2013 Проектирование и создание сайта : студия "ЖенькаПузяш"</div>{% endcomment %}
-					            </div>
-				            </div>
-			            </div>
-			            <div class=" col-md-3">
-				            <div style="height: 100px">
-								<img style="max-width: 120px; margin-top: 15px"
-								     src="{% static 'image/e213534406f5e673030b12a49a117407_L.png' %}"
-								     class="center-block img-responsive">
-				            </div>
-			            </div>
-		            </div>
-		        </div>
-		     </div>
-		</div>
+	    {% register_modal %}
+		<!-- Footer-->
+	    <div class="footer">
+	        <div class="col-md-3 col-sm-2  hidden-xs footer_right">
+	            <img src="{% static 'image/4a071c64184f6ed127d1b90fcde1a863_L.png' %}"
+	                class="image_footer center-block img-responsive">
+	        </div>
+	        <div class=" col-md-6 col-sm-8 col-xs-12  footer_center">
+	            <div class="center-block">
+	                <div class="row footer_navigation hidden-xs" >
+	                    {% include "tags/navigation.html" %}
+	                </div>
+	                <div class="row footer_contact_info">
+	                    <div class="col-md-6 col-sm-6 col-xs-12 info">
+	                        <p><span class="address_info"> Адрес:</span> г. Воронеж ул.Ломоносова 114/8</p>
+	                    </div>
+	                    <div class="col-md-6 col-sm-6 col-xs-12 info ">
+	                        <p><span class="address_info"> E-mail:</span>
+	                            <a href="mailto:stssokolsts@yandex.com">stssokolsts@yandex.com</a>
+	                        </p>
+	                    </div>
+	                </div>
+	                <div class="row footer_copywriter ">
+	                    <div class="address_info hidden-xs" style="color: #fbe1af">
+	                        &copy; 2013 Cоздание сайта : студия "ЖенькаПузяш"
+	                    </div>
+	                    <div class="address_info visible-xs-block" style="color: #fbe1af">
+	                        Телефон: 89192442323
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class=" col-md-3 col-sm-2  hidden-xs footer_left">
+	            <img src="{% static 'image/e213534406f5e673030b12a49a117407_L.png' %}"
+	                class="center-block image_footer img-responsive">
+	        </div>
+	    </div>
 	</div>
-
-
 {% endblock %}

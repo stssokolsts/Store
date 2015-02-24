@@ -2,45 +2,50 @@
 {% load catalog_tags %}
 {% load staticfiles %}
 {% load search_tags %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/store_styles/catalog_base.css">
+{% endblock %}
+
 {% block other_scripts %}
 	<script src="{{ STATIC_URL }}bootstrap/js/store_js/catalog.js"></script>
 	<script src="{{ STATIC_URL }}bootstrap/js/other_libs/jquery.scrollUp.js"></script>
 {% endblock %}
-{% block content %}
-<div class="container_r">
-   <!-- Page Heading/Breadcrumbs -->
-   <div class="row">
-      <div class="col-md-12">
-         <!-- Content Row -->
-         <div class="col-md-9 main_content">
-            {% block page_header %}
-            {% endblock %}
-            {% block main_content %}{% endblock %}
-         </div>
-         <div class="sidebar col-md-3 left_sidebar">
-            <div class="row search">
-               <h3>Поиск по каталогу</h3>
-				{% search_box request %}
-            </div>
-            <div class="row" >
-               <div>
-                  <h3 class="category_names">Категории</h3>
-                  {% category_list request.path %}
-               </div>
-            </div>
 
-            <div class="row">
-               {% pop_products_list %}
-            </div>
-	         <div class="row">
-               {% last_products_list request%}
-            </div>
-         </div>
-         <!-- Content Column -->
-      </div>
-      <!-- /.row -->
-   </div>
-</div>
-	{% comment %}<a id="goCart" href="#top" title="Наверх" style="position: fixed; z-index: 2147483647; display: block;">Перейти в корзину
-	<i class="glyphicon glyphicon-shopping-cart icon-white"></i></a>{% endcomment %}
+
+{% block content %}
+	<div class="container_r">
+	    <div class="row">
+	         <div class="col-md-9 col-sm-9 col-xs-12 main_content">
+		         <div class="my_page_header">
+			         {% block page_header %}{% endblock %}
+		         </div>
+		            {% block main_content %}{% endblock %}
+	         </div>
+	         <div class=" col-md-3 col-sm-3 hidden-xs left_sidebar">
+	            <div class="row search">
+	               <h3>Поиск по каталогу</h3>
+					{% search_box request %}
+	            </div>
+	            <div class="row category_list" >
+	               <div>
+	                  <h3 class="category_names">Категории</h3>
+		               <div class="well category_navbar ">
+		                    <ul class="nav ">
+		                        {% category_list request.path %}
+			                </ul>
+			           </div>
+	               </div>
+	            </div>
+	            <div class="row">
+	               {% pop_products_list %}
+	            </div>
+				{% comment %}
+				<div class="row">
+	                {% last_products_list request%}
+	            </div>
+	            {% endcomment %}
+	         </div>
+	     </div>
+	</div>
 {% endblock %}
